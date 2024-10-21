@@ -1,0 +1,40 @@
+networks:
+  festival.net:
+    driver: bridge
+
+services:
+  api:
+    build:
+      context: build
+      dockerfile: Dockerfile
+    env_file: ./festival.env
+    restart: unless-stopped
+    volumes:
+      - ./app/:/var/php
+    ports:
+      - "22000:80"
+    networks:
+      - festival.net
+    depends_on:
+      - festival.db
+    command:
+      - php -S 0.0.0.0:80 -t /var/php/public
+
+  festival.db:
+    image: mariadb:10.3
+    restart: unless-stopped
+    env_file: ./festival.env
+    volumes:
+      - ./data/:/var/lib/mysql
+    ports:
+      - "22001:3306"
+    networks:
+      - festival.net
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "22002:8080"
+    networks:
+      - festival.net
