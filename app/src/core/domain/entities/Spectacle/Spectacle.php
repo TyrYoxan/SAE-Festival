@@ -1,7 +1,9 @@
 <?php
 namespace festival\core\domain\entities\Spectacle;
-use festival\core\domain\entities\Entity;
+
 use DateTime;
+use festival\core\domain\Entity\Entity;
+
 class Spectacle extends Entity
 {
     private String $name;

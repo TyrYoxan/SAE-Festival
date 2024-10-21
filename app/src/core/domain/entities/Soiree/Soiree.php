@@ -2,8 +2,9 @@
 /* Les soirées sont décrites par un nom, une thématique générale (soirée blues, soirée reggae
 …), une date et un horaire de début, le lieu où elle se déroule, les spectacles prévus,*/
 namespace festival\core\domain\entities\Soiree;
-use festival\core\domain\entities\Entity;
+
 use DateTime;
+use festival\core\domain\Entity\Entity;
 
 class Soiree extends Entity
 {

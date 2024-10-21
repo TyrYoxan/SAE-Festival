@@ -1,5 +1,5 @@
 <?php
-namespace festival\core\domain\Entities;
+namespace festival\core\domain\Entity;
 abstract class Entity
 {
     protected String $id;

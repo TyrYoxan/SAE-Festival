@@ -1,6 +1,9 @@
 <?php
 namespace festival\core\domain\entities\Billet;
-use festival\core\domain\entities\Entity;
+
+use festival\core\domain\Entity\Entity;
+
+
 /*Le tarif des billets d’entrée dépend de la soirée, mais existe toujours en deux catégories :
 tarif normal et tarif réduit (étudiants, demandeurs d’emploi, personnes en situation de
 handicap),*/
