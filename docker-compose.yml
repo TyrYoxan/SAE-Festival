@@ -4,32 +4,29 @@ networks:
 
 services:
   api:
-    build:
-      context: build
-      dockerfile: Dockerfile
+    image: canals/php
     env_file: ./festival.env
     restart: unless-stopped
     volumes:
-      - ./app/:/var/php
+      - ./app/:/var/www/html/app
     ports:
       - "22000:80"
     networks:
       - festival.net
     depends_on:
       - festival.db
-    command:
-      - php -S 0.0.0.0:80 -t /var/php/public
+
 
   festival.db:
     image: mariadb:10.3
-    restart: unless-stopped
-    env_file: ./festival.env
+    env_file: ./festivaldb.env
     volumes:
       - ./data/:/var/lib/mysql
     ports:
       - "22001:3306"
     networks:
       - festival.net
+    restart: unless-stopped
 
   adminer:
     image: adminer
