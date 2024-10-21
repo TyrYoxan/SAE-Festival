@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NRV.net - Nancy Rock Vibration</title>
+    <meta name="description" content="Billetterie officielle du festival Nancy Rock Vibration. Découvrez le programme des spectacles et achetez vos billets en ligne.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">NRV.net</a>
+        <ul>
+            <li><a href="#programme">Programme</a></li>
+            <li><a href="#acheter-billets">Acheter des billets</a></li>
+            <li><a href="#lieux">Lieux</a></li>
+            <li><a href="#compte">Mon compte</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <section id="intro">
+        <h1>Bienvenue à Nancy Rock Vibration 2024</h1>
+        <p>Le festival incontournable de musique rock à Nancy. Explorez le programme et réservez vos places pour des soirées inoubliables.</p>
+        <a href="#programme" class="cta-button">Voir le programme</a>
+    </section>
+
+    <section id="programme">
+        <h2>Programme du Festival</h2>
+        <p>Découvrez la liste complète des spectacles et soirées de cette édition :</p>
+
+        <div class="filters">
+            <label for="filter-date">Filtrer par date :</label>
+            <input type="date" id="filter-date" name="filter-date">
+
+            <label for="filter-style">Filtrer par style :</label>
+            <select id="filter-style" name="filter-style">
+                <option value="all">Tous les styles</option>
+                <option value="rock">Rock</option>
+                <option value="blues">Blues</option>
+                <option value="metal">Metal</option>
+                <option value="chanson">Chanson</option>
+            </select>
+
+            <label for="filter-lieu">Filtrer par lieu :</label>
+            <select id="filter-lieu" name="filter-lieu">
+                <option value="all">Tous les lieux</option>
+                <option value="zenith">Zénith de Nancy</option>
+                <option value="magic-mirrors">Magic Mirrors</option>
+                <option value="autre-lieu">Autre lieu</option>
+            </select>
+        </div>
+
+        <ul class="show-list">
+            <!-- Exemple de spectacle -->
+            <li class="show-item">
+                <img src="https://images.lanouvellerepublique.fr/image/upload/f_auto/66c7777080e958715f8b45fe.jpg" alt="Image du spectacle Rock Band">
+                <div>
+                    <h3>Rock Band Live</h3>
+                    <p>Vendredi 22 octobre 2024 - 20h00</p>
+                    <a href="details-soiree.html">Détails de la soirée</a>
+                </div>
+            </li>
+            <!-- Autres spectacles à lister ici -->
+        </ul>
+    </section>
+
+    <section id="acheter-billets">
+        <h2>Acheter des billets</h2>
+        <p>Réservez vos billets pour les soirées du festival directement en ligne.</p>
+        <a href="acheter-billets.html" class="cta-button">Acheter des billets</a>
+    </section>
+
+    <section id="lieux">
+        <h2>Lieux du Festival</h2>
+        <p>Le festival se déroule dans plusieurs lieux emblématiques de Nancy. Cliquez sur chaque lieu pour plus de détails.</p>
+
+        <ul class="venue-list">
+            <li>
+                <h3>Zénith de Nancy</h3>
+                <p>Adresse: Rue du Zénith, 54000 Nancy</p>
+                <p>Capacité: 5 000 places assises, 10 000 debout</p>
+            </li>
+            <li>
+                <h3>Magic Mirrors</h3>
+                <p>Adresse: Place Carnot, 54000 Nancy</p>
+                <p>Capacité: 500 places assises, 1 000 debout</p>
+            </li>
+            <!-- Autres lieux à ajouter -->
+        </ul>
+    </section>
+
+    <section id="compte">
+        <h2>Mon Compte</h2>
+        <p>Accédez à votre profil pour gérer vos billets et vos réservations.</p>
+        <a href="connexion.html" class="cta-button">Se connecter / S'inscrire</a>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2024 NRV.net - Nancy Rock Vibration</p>
+    <ul>
+        <li><a href="#mentions-legales">Mentions légales</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</footer>
+
+</body>
+
+</html>
