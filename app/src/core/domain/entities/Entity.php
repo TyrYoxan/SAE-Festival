@@ -1,8 +1,8 @@
 <?php
-namespace App\Core\Domain\Entities;
+namespace festival\core\domain\Entities;
 abstract class Entity
 {
-    protected string $id;
+    protected String $id;
 
     public function __construct(string $id)
     {

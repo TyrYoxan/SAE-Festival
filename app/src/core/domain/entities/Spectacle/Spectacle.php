@@ -1,13 +1,13 @@
 <?php
-namespace App\Core\Domain\Entities\Spectacle;
-use App\Core\Domain\Entities\Entity;
-
+namespace festival\core\domain\entities\Spectacle;
+use festival\core\domain\entities\Entity;
+use DateTime;
 class Spectacle extends Entity
 {
-    private string $name;
-    private \DateTime $date;
+    private String $name;
+    private DateTime $date;
 
-    private string $address;
+    private String $address;
 
     private int $nbrPlaceAssise;
 
@@ -16,7 +16,7 @@ class Spectacle extends Entity
     private array $images;
 
 
-    public function __construct(string $id, string $name, \DateTime $date, string $address, int $nbrPlaceAssise, int $nbrPlaceDebout, array $images)
+    public function __construct(string $id, string $name, DateTime $date, string $address, int $nbrPlaceAssise, int $nbrPlaceDebout, array $images)
     {
         parent::__construct($id);
         $this->name = $name;
@@ -32,7 +32,7 @@ class Spectacle extends Entity
         return $this->name;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }

@@ -1,20 +1,20 @@
 <?php
 /* Les soirées sont décrites par un nom, une thématique générale (soirée blues, soirée reggae
 …), une date et un horaire de début, le lieu où elle se déroule, les spectacles prévus,*/
-namespace App\Core\Domain\Entities\Soirée;
-use App\Core\Domain\Entities\Entity;
-use App\Core\Domain\Entities\Spectacle\Spectacle;
+namespace festival\core\domain\entities\Soiree;
+use festival\core\domain\entities\Entity;
+use DateTime;
 
 class Soiree extends Entity
 {
-    private string $name;
-    private string $theme;
-    private \DateTime $date;
-    private \DateTime $hour;
-    private string $place;
+    private String $name;
+    private String $theme;
+    private DateTime $date;
+    private DateTime $hour;
+    private String $place;
     private array $spectacles;
 
-    public function __construct(string $id, string $name, string $theme, \DateTime $date, \DateTime $hour, string $place, array $spectacles)
+    public function __construct(string $id, string $name, string $theme, DateTime $date, DateTime $hour, string $place, array $spectacles)
     {
         parent::__construct($id);
         $this->name = $name;
@@ -35,12 +35,12 @@ class Soiree extends Entity
         return $this->theme;
     }
 
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
 
-    public function getHour(): \DateTime
+    public function getHour(): DateTime
     {
         return $this->hour;
     }
