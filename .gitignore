@@ -1,0 +1,7 @@
+festival.env
+festivaldb.env
+app/composer.lock
+data
+app/vendor
+.idea
+.vscode

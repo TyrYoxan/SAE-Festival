@@ -1,0 +1,51 @@
+networks:
+  festival.net:
+    driver: bridge
+
+services:
+  api:
+    image: canals/php
+    env_file: ./festival.env
+    restart: unless-stopped
+    volumes:
+      - ./app/:/var/www/html/app
+    ports:
+      - "22000:80"
+    networks:
+      - festival.net
+    depends_on:
+      - festival.db
+    command: php -S 0.0.0.0:80 -t /var/www/html/app/public
+
+  web:
+    image: ubuntu/apache2:latest
+    restart: unless-stopped
+    volumes:
+      - ./frontend/:/var/www/html/frontend
+    ports:
+      - "22001:80"
+    networks:
+      - festival.net
+    depends_on:
+      - api
+
+
+  festival.db:
+    image: mysql:latest
+    env_file: ./festivaldb.env
+    #volumes:
+    #  - ./data/:/var/lib/mysql
+    ports:
+      - "22002:3306"
+    networks:
+      - festival.net
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "22003:8080"
+    networks:
+      - festival.net
+    command: php -S 0.0.0.0:8080 -t /var/www/html
