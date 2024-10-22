@@ -54,4 +54,6 @@ class Spectacle extends Entity
     {
         return $this->heure;
     }
+
+
 }

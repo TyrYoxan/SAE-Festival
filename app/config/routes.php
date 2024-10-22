@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-use festival\application\actions\HomeAction;
-use festival\application\actions\SoireeAction;
-use festival\application\actions\GetSpectaclesAction;
+use festival\application\action\HomeAction;
+use festival\application\action\GetSoireeAction;
+use festival\application\action\GetSpectaclesAction;
 use festival\application\middlewares\Cors;
 
 return function (\Slim\App $app): \Slim\App {
-    $app->add(Cors::class);
+    //$app->add(Cors::class);
 
     $app->get('/', HomeAction::class)->setName('home');
 
@@ -15,7 +15,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/spectacles', GetSpectaclesAction::class)->setName('spectacles');
 
     // details d'un spectacle
-    $app->get('/soirees/{id}', SoireeAction::class)->setName('spectacle');
+    $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle');
 
     return $app;
 };

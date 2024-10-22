@@ -15,23 +15,37 @@ services:
       - festival.net
     depends_on:
       - festival.db
+    command: php -S 0.0.0.0:80 -t /var/www/html/app/public
+
+  web:
+    image: ubuntu/apache2:latest
+    restart: unless-stopped
+    volumes:
+      - ./app/:/var/www/html/app
+    ports:
+      - "22001:80"
+    networks:
+      - festival.net
+    depends_on:
+      - api
 
 
   festival.db:
-    image: mariadb:10.3
+    image: mysql:latest
     env_file: ./festivaldb.env
-    volumes:
-      - ./data/:/var/lib/mysql
+    #volumes:
+    #  - ./data/:/var/lib/mysql
     ports:
-      - "22001:3306"
+      - "22002:3306"
     networks:
       - festival.net
     restart: unless-stopped
 
-  adminer:
+  phpmyadmin:
     image: adminer
     restart: unless-stopped
     ports:
-      - "22002:8080"
+      - "22003:8080"
     networks:
       - festival.net
+    command: php -S 0.0.0.0:8080 -t /var/www/html

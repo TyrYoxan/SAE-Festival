@@ -1,6 +1,6 @@
 <?php
 
-namespace festival\application\actions;
+namespace festival\application\action;
 
 
 use Psr\Container\ContainerInterface;

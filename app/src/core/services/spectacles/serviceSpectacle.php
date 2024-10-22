@@ -1,6 +1,8 @@
 <?php
 
-use toubeelib\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
+namespace festival\core\services\spectacles;
+use festival\core\services\spectacles\serviceSpectacleInterface;
+use festival\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
 
 class serviceSpectacle implements serviceSpectacleInterface{
     private SpectacleRepositoryInterface $spectacleRepository;

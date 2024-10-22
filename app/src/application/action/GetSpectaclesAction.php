@@ -1,13 +1,13 @@
 <?php
 
-namespace festival\application\actions;
+namespace festival\application\action;
 
-use festival\application\actions\AbstractAction;
+use festival\application\action\AbstractAction;
+use festival\application\renderer\JsonRenderer;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use serviceSpectacleInterface;
+use festival\core\services\spectacles\serviceSpectacleInterface;
 use Slim\Routing\RouteContext;
-use toubeelib\application\renderer\JsonRenderer;
 
 class GetSpectaclesAction extends AbstractAction{
     private serviceSpectacleInterface $serviceSpectacle;
