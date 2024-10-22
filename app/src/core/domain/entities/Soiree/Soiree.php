@@ -1,58 +1,57 @@
 <?php
-/* Les soirées sont décrites par un nom, une thématique générale (soirée blues, soirée reggae
-…), une date et un horaire de début, le lieu où elle se déroule, les spectacles prévus,*/
+
 namespace festival\core\domain\entities\Soiree;
 
 use DateTime;
+use DateTimeInterface;
+use festival\core\domain\entities\Spectacle\Spectacle;
 use festival\core\domain\Entity\Entity;
+use festival\core\Dto\DtoSoiree;
 
-class Soiree extends Entity
-{
-    private String $name;
-    private String $theme;
-    private DateTime $date;
-    private DateTime $hour;
-    private String $place;
-    private array $spectacles;
+class Soiree extends Entity{
 
-    public function __construct(string $id, string $name, string $theme, DateTime $date, DateTime $hour, string $place, array $spectacles)
-    {
-        parent::__construct($id);
+    protected string $name;
+    protected string $theme;
+    protected DateTimeInterface $date;
+    protected DateTimeInterface $hour;
+    protected string $lieu;
+    protected array $spectacles;
+
+    public function __construct(string $name, string $theme, DateTimeInterface $date, DateTimeInterface $hour, string $place, array $spectacles){
         $this->name = $name;
         $this->theme = $theme;
         $this->date = $date;
         $this->hour = $hour;
-        $this->place = $place;
+        $this->lieu = $place;
         $this->spectacles = $spectacles;
     }
 
-    public function getName(): string
-    {
+    public function toDTO(): DtoSoiree{
+        return new DtoSoiree($this);
+    }
+
+    // Ajoute les getters
+    public function getName(): string {
         return $this->name;
     }
 
-    public function getTheme(): string
-    {
+    public function gettheme(): string {
         return $this->theme;
     }
 
-    public function getDate(): DateTime
-    {
+    public function getdate(): DateTimeInterface {
         return $this->date;
     }
 
-    public function getHour(): DateTime
-    {
+    public function getheure(): DateTimeInterface {
         return $this->hour;
     }
 
-    public function getPlace(): string
-    {
-        return $this->place;
+    public function getplace(): string {
+        return $this->lieu;
     }
 
-    public function getSpectacles(): array
-    {
+    public function getspectacle(): array {
         return $this->spectacles;
     }
 }

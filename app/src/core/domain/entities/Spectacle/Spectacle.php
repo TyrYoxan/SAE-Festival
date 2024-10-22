@@ -3,20 +3,23 @@ namespace festival\core\domain\entities\Spectacle;
 
 use DateTime;
 use festival\core\domain\Entity\Entity;
+use festival\core\Dto\DtoSoiree;
+use festival\core\Dto\DtoSpectacle;
+
 /*Un spectacle est décrit par un titre, un ou plusieurs artistes, une description, une ou plusieurs
 images, une url vers une vidéo, un horaire prévisionnel.*/
 class Spectacle extends Entity
 {
     private String $title;
-    private array $artists;
+    private string $artists;
     private String $description;
-    private array $images;
+    private string $images;
     private String $videoUrl;
     private DateTime $heure;
 
-    public function __construct(string $id, string $title, array $artists, string $description, array $images, string $videoUrl, DateTime $heure)
+    public function __construct(string $title, string $artists, string $description, string $images, string $videoUrl, DateTime $heure)
     {
-        parent::__construct($id);
+
         $this->title = $title;
         $this->artists = $artists;
         $this->description = $description;
@@ -25,12 +28,15 @@ class Spectacle extends Entity
         $this->heure = $heure;
     }
 
+    public function toDTO(): DtoSpectacle{
+        return new DtoSpectacle($this);
+    }
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function getArtists(): array
+    public function getArtists(): string
     {
         return $this->artists;
     }
@@ -40,7 +46,7 @@ class Spectacle extends Entity
         return $this->description;
     }
 
-    public function getImages(): array
+    public function getImages(): string
     {
         return $this->images;
     }

@@ -2,6 +2,7 @@
 
 namespace festival\core\services\soirees;
 
+use festival\core\Dto\DtoSoiree;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\services\soirees\serviceSoireeInterface;
 
@@ -12,8 +13,12 @@ class serviceSoirees implements serviceSoireeInterface{
         $this->soireeRepository = $soireeRepository;
     }
 
-    public function getSpectacles(string $id){
+    public function getSpectacles(string $id):array{
         $soiree = $this->soireeRepository->getSpectacles($id);
-        return $soiree;
+        $soirees = [];
+        foreach ($soiree as $s){
+            $soirees[] = $s->toDTO();
+        }
+        return $soirees;
     }
 }

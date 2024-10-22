@@ -13,7 +13,12 @@ class PDOSpectacle implements SpectacleRepositoryInterface{
         $this->pdo = $pdo;
     }
     public function getSpectacles(): array{
-        $stmt = $this->pdo->query('SELECT Spectacle.*, Artiste.nom FROM Spectacle INNER JOIN Spectacle_Artiste ON Spectacle.id_spectacle = Spectacle_Artiste.id_spectacle INNER JOIN Artiste ON Spectacle_Artiste.id_artiste = Artiste.id_artiste;');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try{
+            $stmt = $this->pdo->query('SELECT Spectacle.*, Artiste.nom, Soiree.date FROM Spectacle INNER JOIN Spectacle_Artiste ON Spectacle.id_spectacle = Spectacle_Artiste.id_spectacle INNER JOIN Artiste ON Spectacle_Artiste.id_artiste = Artiste.id_artiste INNER JOIN Soiree ON Spectacle.id_soiree = Soiree.id_soiree;');
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch (\PDOException $e){
+            throw new \Exception($e->getMessage());
+        }
+
     }
 }

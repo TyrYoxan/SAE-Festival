@@ -3,25 +3,24 @@ namespace festival\core\Dto;
 
 use DateTime;
 use festival\core\domain\entities\Soiree\Soiree;
+use festival\core\domain\entities\Spectacle\Spectacle;
 
-class DtoSoiree
-{
+class DtoSoiree extends Dto implements \JsonSerializable{
     protected String $name;
     protected String $theme;
-    protected DateTime $date;
-    protected DateTime $hour;
-    protected String $place;
+    protected \DateTimeInterface $date;
+    protected \DateTimeInterface $hour;
+    protected String $lieu;
     protected array $spectacles;
 
 
-    public function __construct(Soiree $soiree)
-    {
-        $this->name = $soiree->getName();
-        $this->theme = $soiree->getTheme();
-        $this->date = $soiree->getDate();
-        $this->hour = $soiree->getHour();
-        $this->place = $soiree->getPlace();
-        $this->spectacles = $soiree->getSpectacles();
+    public function __construct(Soiree $soiree){
+      $this->name = $soiree->getname();
+      $this->theme = $soiree->gettheme();
+      $this->date = $soiree->getdate();
+      $this->hour = $soiree->getheure();
+      $this->lieu = $soiree->getplace();
+      $this->spectacles = $soiree->getspectacle();
     }
 
     public function jsonSerialize() : array
@@ -31,7 +30,7 @@ class DtoSoiree
             'theme' => $this->theme,
             'date' => $this->date,
             'hour' => $this->hour,
-            'place' => $this->place,
+            'lieu' => $this->lieu,
             'spectacles' => $this->spectacles
         ];
     }

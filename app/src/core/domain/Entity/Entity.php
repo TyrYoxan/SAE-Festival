@@ -2,12 +2,8 @@
 namespace festival\core\domain\Entity;
 abstract class Entity
 {
-    protected String $id;
+    protected ?string $id=null;
 
-    public function __construct(string $id)
-    {
-        $this->id = $id;
-    }
 
     public function getId(): string
     {

@@ -19,7 +19,6 @@ class GetSoireeAction extends AbstractAction{
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface{
         $soiree = $this->serviceSoirees->getSpectacles($args['id']);
-
         $routeContext = RouteContext::FromRequest($rq);
         $routeParser = $routeContext->getRouteParser();
 

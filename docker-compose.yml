@@ -21,7 +21,7 @@ services:
     image: ubuntu/apache2:latest
     restart: unless-stopped
     volumes:
-      - ./app/:/var/www/html/app
+      - ./frontend/:/var/www/html/frontend
     ports:
       - "22001:80"
     networks:

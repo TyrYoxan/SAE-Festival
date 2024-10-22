@@ -17,17 +17,24 @@ class GetSpectaclesAction extends AbstractAction{
     }
 
     public function __invoke(Request $rq, Response $rs, array $args): Response{
-        $spectacle = $this->serviceSpectacle->getSpectacles();
+        try{
+            $spectacle = $this->serviceSpectacle->getSpectacles();
 
-        $routeContext = RouteContext::FromRequest($rq);
-        $routeParser = $routeContext->getRouteParser();
+            $routeContext = RouteContext::FromRequest($rq);
+            $routeParser = $routeContext->getRouteParser();
 
-        $data = [
-            'type' => 'collection',
-            'spectacles' => $spectacle,
-        ];
+            $data = [
+                'type' => 'collection',
+                'spectacles' => $spectacle,
+            ];
 
-        $rs = $rs->withHeader('Content-type', 'application/json');
-        return JsonRenderer::render($rs, 200, $data);
+            $rs = $rs->withHeader('Content-type', 'application/json');
+            return JsonRenderer::render($rs, 200, $data);
+
+        }catch (\Throwable $th){
+            $rs = $rs->withHeader('Content-type', 'application/json');
+            return JsonRenderer::render($rs, 500, $th->getMessage());
+        }
+
     }
 }
