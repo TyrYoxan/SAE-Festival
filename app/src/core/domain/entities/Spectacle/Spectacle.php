@@ -11,13 +11,13 @@ images, une url vers une vidéo, un horaire prévisionnel.*/
 class Spectacle extends Entity
 {
     private String $title;
-    private string $artists;
+    private array $artists;
     private String $description;
     private string $images;
     private String $videoUrl;
-    private DateTime $heure;
+    private string $heure;
 
-    public function __construct(string $title, string $artists, string $description, string $images, string $videoUrl, DateTime $heure)
+    public function __construct(string $title, array $artists, string $description, string $images, string $videoUrl, string $heure)
     {
 
         $this->title = $title;
@@ -36,7 +36,7 @@ class Spectacle extends Entity
         return $this->title;
     }
 
-    public function getArtists(): string
+    public function getArtists(): array
     {
         return $this->artists;
     }
@@ -56,7 +56,7 @@ class Spectacle extends Entity
         return $this->videoUrl;
     }
 
-    public function getHour(): DateTime
+    public function getHour(): string
     {
         return $this->heure;
     }

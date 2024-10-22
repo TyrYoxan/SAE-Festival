@@ -6,11 +6,11 @@ use festival\core\domain\entities\Spectacle\Spectacle;
 class DtoSpectacle extends Dto implements \JsonSerializable{
     protected string $id;
     protected string $title;
-    protected string $artists;
+    protected array $artists;
     protected string $description;
     protected string $images;
     protected string $videoUrl;
-    protected DateTime $heure;
+    protected string $heure;
 
     public function __construct(Spectacle $sp)
     {
