@@ -18,10 +18,6 @@ a {
     color: #ff6b6b;
 }
 
-a:hover {
-    color: #ff3b3b;
-}
-
 /* Header et navigation */
 header {
     background-color: #333;
@@ -41,6 +37,7 @@ header .logo {
 nav ul {
     list-style: none;
     margin-top: 10px;
+    text-align: center;
 }
 
 nav ul li {
@@ -53,7 +50,7 @@ nav ul li a {
     font-size: 1.1em;
 }
 
-/* Section introduction */
+/* Section Introduction */
 #intro {
     text-align: center;
     padding: 100px 0;
@@ -66,6 +63,7 @@ nav ul li a {
 #intro h1 {
     font-size: 3em;
     margin-bottom: 20px;
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 #intro p {
@@ -80,10 +78,11 @@ nav ul li a {
     color: #fff;
     border-radius: 5px;
     font-size: 1.2em;
+    transition: background-color 0.3s ease;
 }
 
 .cta-button:hover {
-    background-color: #ff3b3b;
+    background-color: #d57171;
 }
 
 /* Section Programme */
@@ -100,6 +99,7 @@ nav ul li a {
 
 #programme .filters {
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 #programme .filters label {
@@ -149,6 +149,11 @@ nav ul li a {
     margin-bottom: 10px;
 }
 
+#signin, #signup {
+    text-align: center;
+    margin: 40px 0;
+}
+
 /* Section Acheter des billets */
 #acheter-billets {
     padding: 60px 20px;
@@ -171,18 +176,20 @@ nav ul li a {
 #lieux {
     padding: 60px 20px;
     background-color: #fff;
+    text-align: center;
 }
 
 #lieux h2 {
     font-size: 2.5em;
     margin-bottom: 30px;
-    text-align: center;
 }
 
 .venue-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    list-style: none;
+    margin-top: 20px;
 }
 
 .venue-list li {
@@ -214,6 +221,92 @@ nav ul li a {
     margin-bottom: 20px;
 }
 
+/* Section des billets */
+#mes-billets {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.billet {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.billet:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.billet h2 {
+    color: #ff6b6b;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.billet p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.no-tickets {
+    padding: 2rem;
+    background-color: #f0f0f0;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #95a5a6;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+/* Formulaire */
+.form-group {
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+}
+
+button[type="submit"], button.btn {
+    padding: 0.75rem 2rem;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d57171;
+}
+
 /* Footer */
 footer {
     background-color: #333;
@@ -241,7 +334,7 @@ footer ul li a:hover {
     text-decoration: underline;
 }
 
-/* Responsiveness */
+/* Responsivité */
 @media (max-width: 768px) {
     nav ul {
         display: block;
@@ -256,4 +349,107 @@ footer ul li a:hover {
         flex-direction: column;
         align-items: center;
     }
+
+    #filters-form {
+        flex-direction: column;
+    }
+
+    .spectacles {
+        grid-template-columns: 1fr;
+    }
+
+    #mes-billets {
+        padding: 1rem;
+    }
+
+    .billet {
+        padding: 1rem;
+    }
+
+    .billet h2 {
+        font-size: 1.25rem;
+    }
+
+    button.btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Section des détails de la soirée */
+#details-soiree {
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+#details-soiree h1 {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+}
+
+#details-soiree p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+#details-soiree .tarifs ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#details-soiree .tarifs li {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Section des spectacles */
+.spectacle {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.spectacle h3 {
+    color: #ff6b6b;
+    margin-bottom: 0.75rem;
+}
+
+.spectacle p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #details-soiree {
+        padding: 1rem;
+    }
+
+    .spectacle {
+        padding: 1rem;
+    }
+
+    .spectacle h3 {
+        font-size: 1.25rem;
+    }
+}
+
+#details-soiree ul {
+    list-style: none;
+    margin-left: 12px;
+}
+
+.spectacle .images {
+    padding: 20px;
+}
+
+.spectacle .images img {
+    height: 200px;
+    border-radius: 10px;
+    margin-right: 12px;
 }
