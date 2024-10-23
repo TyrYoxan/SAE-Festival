@@ -10,7 +10,7 @@ use Firebase\JWT\BeforeValidException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use festival\application\providers\auth\JWTAuthnProvider;
-use festival\core\dto\AuthDTO;
+use festival\core\dto\DtoAuth;
 
 class JWTAuthMiddleware{
 
@@ -21,7 +21,7 @@ class JWTAuthMiddleware{
 
             $token = JWTAuthnProvider::class->getSignedInUser($tokenstring);
 
-            $auth = new AuthDTO($token->id, $token->email, $token->role);
+            $auth = new DtoAuth($token->id, $token->email, $token->role);
 
 
         } catch (ExpiredException $e) {

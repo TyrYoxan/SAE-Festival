@@ -6,6 +6,7 @@ use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
 use festival\application\action\GetTicketByUserAction;
 use festival\application\action\PostCreateUserAction;
+use festival\application\action\PostSigninAction;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
@@ -16,6 +17,7 @@ use festival\core\services\soirees\serviceSoirees;
 use festival\core\services\spectacles\serviceSpectacle;
 use festival\core\services\themes\serviceThemes;
 use festival\core\services\Utilisateur\serviceUtilisateur;
+use festival\core\services\Utilisateur\serviceUtilisateurInterface;
 use festival\infrastructure\repositories\PDOLieu;
 use festival\infrastructure\repositories\PDOSoiree;
 use festival\infrastructure\repositories\PDOSpectacle;
@@ -26,6 +28,7 @@ use Psr\Container\ContainerInterface;
 
 
 return[
+    // PDO
     'spectacle.pdo' => function (ContainerInterface $c) {
         $pdo = new PDO(
             'mysql:host=festival.db;dbname=festival;charset=utf8',
@@ -71,6 +74,7 @@ return[
         return new PDOUtilisateur($pdo);
     },
 
+    // Repositories
     SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
         return new serviceSpectacle($c->get('spectacle.pdo'));
     },
@@ -88,9 +92,15 @@ return[
     },
 
     UtilisateurRepositoryInterface::class => function (ContainerInterface $c) {
-        return new serviceUtilisateur($c->get('user.pdo'));
+        return $c->get('user.pdo');
     },
 
+    // Services
+    serviceUtilisateurInterface::class => function (ContainerInterface $c) {
+        return new serviceUtilisateur($c->get(UtilisateurRepositoryInterface::class));
+    },
+
+    // Actions
     GetSpectaclesAction::class => function (ContainerInterface $c) {
         return new GetSpectaclesAction($c->get(SpectacleRepositoryInterface::class));
     },
@@ -108,8 +118,13 @@ return[
     },
 
     PostCreateUserAction::class => function (ContainerInterface $c) {
-        return new PostCreateUserAction($c->get(UtilisateurRepositoryInterface::class));
+        return new PostCreateUserAction($c->get(serviceUtilisateurInterface::class));
     },
+
+    PostSigninAction::class => function (ContainerInterface $c) {
+        return new PostSigninAction($c->get(UtilisateurRepositoryInterface::class));
+    },
+
     GetTicketByUserAction::class => function (ContainerInterface $c) {
         return new GetTicketByUserAction($c->get(UtilisateurRepositoryInterface::class));
     },

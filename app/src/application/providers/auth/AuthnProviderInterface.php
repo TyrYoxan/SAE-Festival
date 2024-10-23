@@ -2,14 +2,15 @@
 
 namespace festival\application\providers\auth;
 
+use festival\core\Dto\DtoAuth;
+use festival\core\Dto\DtoCredentials;
 use PhpParser\Token;
-use festival\core\dto\AuthDTO;
-use festival\core\dto\CredentialsDTO;
+
 
 interface AuthnProviderInterface{
-    public function register(CredentialsDTO $credentials, int $role): void;
-    public function signin(CredentialsDTO $credentials): AuthDTO;
-    public function refresh(Token $token): AuthDTO;
+    //public function register(DtoCredentials $credentials, int $role): void;
+    public function signin(DtoCredentials $credentials): DtoAuth;
+    public function refresh(Token $token): DtoAuth;
 
-    public function getSignedInUser(Token $token): AuthDTO;
+    public function getSignedInUser(Token $token): DtoAuth;
 }

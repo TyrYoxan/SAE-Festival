@@ -2,73 +2,41 @@
 
 namespace festival\application\providers\auth;
 
-use PDO;
+use festival\core\Dto\DtoCredentials;
+use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use PhpParser\Token;
-use festival\application\providers\auth\AuthnProviderInterface;
-use festival\core\dto\AuthDTO;
-use festival\core\dto\CredentialsDTO;
-use festival\core\services\auth\AuthnService;
+use festival\core\dto\DtoAuth;
+use festival\core\services\auth\serviceAuthn;
 
 class JWTAuthnProvider implements AuthnProviderInterface{
 
-    private PDO $db;
+    private UtilisateurRepositoryInterface $repositoryUtilisateur;
 
-    public function __construct() {
-        $pdo = new PDO('pgsql:host=toubeelib.db;dbname=auth', 'root', 'root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->db = $pdo;
+    public function __construct(UtilisateurRepositoryInterface $repositoryUtilisateur){
+        $this->repositoryUtilisateur = $repositoryUtilisateur;
     }
 
-    public function register(CredentialsDTO $credentials, int $role): void{
-        if($credentials->password == null || strlen($credentials->password) < 8){
-            throw new \Exception("Password must be at least 8 characters");
-        }
 
-        if(filter_var($credentials->email, FILTER_VALIDATE_EMAIL) === false){
-            throw new \Exception("Invalid email");
-        }
-
-        $existingUser = $this->getUserByEmail($credentials->email);
-        if ($existingUser) {
-            throw new \Exception('Cet utilisateur existe déjà');
-        }
-
-
-        try {
-            $sql = "INSERT INTO users (email, password, role) VALUES (:email, :password, :role)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                'email' => $credentials->email,
-                'password' => password_hash($credentials->password, PASSWORD_DEFAULT),
-                'role' => $role
-            ]);
-
-        } catch (\PDOException $e) {
-            throw new \Exception('Erreur lors de l\'enregistrement de l\'utilisateur: ' . $e->getMessage());
-        }
-    }
-
-    public function signin(CredentialsDTO $credentials): AuthDTO{
-        $sql = "SELECT id, role FROM Utilisateur WHERE email = :email";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['email' => $credentials->email]);
-        $user = $stmt->fetch();
+    public function signin(DtoCredentials $credentials): DtoAuth{
+        $user = $this->repositoryUtilisateur->getUserByEmail($credentials);
         if (!$user) {
             throw new \Exception('Cet utilisateur n\'existe pas');
         }
-        $payload = [ 'iss'=>'localhost:6080/users/signin',
-            'aud'=>'localhost:6080/users/signin',
+
+        $payload = [ 'iss'=>'localhost:22000/users/signin',
+            'aud'=>'localhost:22000/users/signin',
             'iat'=>time(),
-            'exp'=>time()+3600,
-            'sub' => $user['id'],
+            'exp'=>time()+getenv('JWT_EXPIRATION_TIME'),
+            'sub' => $user->getId(),
             'data' => [
-                'role' => $user['role'],
-                'user' => $credentials->email
+                'role' => $user->getRole(),
+                'email' => $user->getEmail(),
+                'name' => $user->getNom()
             ]
         ] ;
 
         $jwt = new JWTManager();
-        $auth = new AuthnService($this->db);
+        $auth = new serviceAuthn($this->repositoryUtilisateur);
         $accessToken = $jwt->creatAccessToken($payload);
         $refreshToken = $jwt->creatRefreshToken($payload);
         $user2 = $auth->byCredentials($credentials);
@@ -76,27 +44,18 @@ class JWTAuthnProvider implements AuthnProviderInterface{
         return $user2;
     }
 
-    public function refresh(Token $token): AuthDTO{
+    public function refresh(Token $token): DtoAuth{
         $payload = JWTManager::class->decodeToken($token);
 
         $token = JWTManager::class->creatAccessToken($payload);
         $rtoken = JWTManager::class->creatRefreshToken($payload);
-        $auth = new AuthDTO($payload['sub'], $payload['data']['user'], $payload['data']['role']);
+        $auth = new DtoAuth($payload['data']['name'], $payload['data']['email'], $payload['sub'], $payload['data']['role']);
         
         return $auth->addToken($token, $rtoken);
     }
 
-    public function getSignedInUser(Token $token): AuthDTO{
+    public function getSignedInUser(Token $token): DtoAuth{
         $payload = JWTManager::class->decodeToken($token);
-        return new AuthDTO($payload['sub'], $payload['data']['user'], $payload['data']['role']);
+        return new DtoAuth($payload['data']['name'], $payload['data']['email'], $payload['sub'], $payload['data']['role']);
     }
-
-    public function getUserByEmail($email): ?array{
-        $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        return $stmt->fetch();
-    }
-
-
 }

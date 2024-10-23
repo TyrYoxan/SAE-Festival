@@ -29,7 +29,7 @@ class PDOSpectacle implements SpectacleRepositoryInterface{
             $params = [];
 
             // Ajouter des conditions dynamiques
-            if ($type !== null) {
+            if ($type !== 0) {
                 $query .= ' AND Soiree.thematique = :type';
                 $params[':type'] = $type;
             }

@@ -20,15 +20,15 @@ class JWTManager{
 
     public function decodeToken(string $token): array{
         try {
-            return array(JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'),'HS512' )));
-        } catch (ExpiredException $e) {
-            throw new \ExpiredException::class;
+            return (array) JWT::decode($token, new Key(getenv('JWT_SECRET_KEY'),'HS512' ));
+        }catch (ExpiredException $e) {
+            throw new ExpiredException('Token expiré');
         } catch (SignatureInvalidException $e) {
-            throw new  \SignatureInvalidException::class;
+            throw new SignatureInvalidException('Signature invalide');
         } catch (BeforeValidException $e) {
-            throw new  \BeforeValidException::class;
+            throw new BeforeValidException('Token non valide');
         } catch (\UnexpectedValueException $e) {
-            throw new  \UnexpectedValueException::class;
+            throw new \UnexpectedValueException('Valeur inattendue dans le token');
         }
     }
 }

@@ -8,6 +8,7 @@ use festival\application\action\HomeAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\PostCreateUserAction;
+use festival\application\action\PostSigninAction;
 use festival\application\middlewares\Cors;
 
 return function (\Slim\App $app): \Slim\App {
@@ -31,6 +32,9 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
 
     $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
+
+    // signin
+    $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
     return $app;
 };
