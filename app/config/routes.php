@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetThemesAction;
+use festival\application\action\GetTicketByUserAction;
 use festival\application\action\HomeAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
@@ -28,6 +29,8 @@ return function (\Slim\App $app): \Slim\App {
 
     // create user
     $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
+
+    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
 
     return $app;
 };

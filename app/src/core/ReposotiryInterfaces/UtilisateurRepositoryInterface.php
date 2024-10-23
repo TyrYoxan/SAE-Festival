@@ -9,4 +9,6 @@ interface UtilisateurRepositoryInterface{
     public function creatUser(Utilisateur $utilisateur): void;
     public function getUserByEmail(string $email): Utilisateur;
 
+    public function getBilletsByUser(string $userId): array;
+
 }

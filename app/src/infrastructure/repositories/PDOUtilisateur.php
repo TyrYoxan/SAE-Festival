@@ -2,6 +2,7 @@
 
 namespace festival\infrastructure\repositories;
 
+use festival\core\domain\entities\Billet\Billet;
 use festival\core\domain\entities\Utilisateur\Utilisateur;
 use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use PDO;
@@ -35,5 +36,12 @@ class PDOUtilisateur implements UtilisateurRepositoryInterface{
         $user = new Utilisateur($row['nom'], $row['email'], $row['mot_de_passe'], $row['role']);
         $user->setId($row['uuid']);
         return $user;
+    }
+
+    public function getBilletsByUser(string $userId): array {
+        $stmt = $this->db->prepare('SELECT * FROM Billet WHERE id_utilisateur = :userId');
+        $stmt->execute(['userId' => $userId]);
+        $billets  = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $billets;
     }
 }

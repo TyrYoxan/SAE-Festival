@@ -4,6 +4,7 @@ use festival\application\action\GetLieuxAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
+use festival\application\action\GetTicketByUserAction;
 use festival\application\action\PostCreateUserAction;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
@@ -108,5 +109,8 @@ return[
 
     PostCreateUserAction::class => function (ContainerInterface $c) {
         return new PostCreateUserAction($c->get(UtilisateurRepositoryInterface::class));
+    },
+    GetTicketByUserAction::class => function (ContainerInterface $c) {
+        return new GetTicketByUserAction($c->get(UtilisateurRepositoryInterface::class));
     },
 ];

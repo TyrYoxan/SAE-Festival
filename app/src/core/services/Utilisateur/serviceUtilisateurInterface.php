@@ -10,4 +10,6 @@ interface serviceUtilisateurInterface{
     public function createUser(string $nom, string $email, string $password): void;
 
     public function getUserByEmail(string $email): DtoUtilisateur;
+
+    public function getBilletsByUser(string $userId): array;
 }
