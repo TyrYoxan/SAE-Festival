@@ -18,7 +18,16 @@ class GetSpectaclesAction extends AbstractAction{
 
     public function __invoke(Request $rq, Response $rs, array $args): Response{
         try{
-            $spectacle = $this->serviceSpectacle->getSpectacles();
+            $queryParams = $rq->getQueryParams();
+
+            $type = $queryParams['type'] ?? null;
+            $date = $queryParams['date'] ?? null;
+            $lieu = $queryParams['lieu'] ?? null;
+            if(is_null($type) && is_null($date) && is_null($lieu)){
+                $spectacle = $this->serviceSpectacle->getSpectacles();
+            }else{
+                $spectacle = $this->serviceSpectacle->getSpectaclesByFilter($type, $date, $lieu);
+            }
 
             $routeContext = RouteContext::FromRequest($rq);
             $routeParser = $routeContext->getRouteParser();
@@ -27,7 +36,6 @@ class GetSpectaclesAction extends AbstractAction{
                 'type' => 'collection',
                 'spectacles' => $spectacle,
             ];
-
             $rs = $rs->withHeader('Content-type', 'application/json');
             return JsonRenderer::render($rs, 200, $data);
 
