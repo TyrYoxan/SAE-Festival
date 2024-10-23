@@ -19,7 +19,8 @@ class Soiree extends Entity{
     protected array $spectacles;
     protected array $tarifs;
 
-    public function __construct(string $name, string $theme, string $date, string $hour, string $place, array $spectacles, array $tarifs){
+    public function __construct(string $id,string $name, string $theme, string $date, string $hour, string $place, array $spectacles, array $tarifs){
+        parent::__construct($id);
         $this->name = $name;
         $this->theme = $theme;
         $this->date = $date;

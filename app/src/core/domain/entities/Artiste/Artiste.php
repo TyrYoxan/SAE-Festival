@@ -1,5 +1,5 @@
 <?php
-namespace festival\core\services\spectacles;
+namespace festival\core\domain\entities\Artiste;
 
 use festival\core\domain\Entity\Entity;
 

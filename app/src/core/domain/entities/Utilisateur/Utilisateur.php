@@ -1,7 +1,7 @@
 <?php
 namespace festival\core\domain\entities\Utilisateur;
 
-use festival\core\domain\entities\Entity;
+use festival\core\domain\entity\Entity;
 
 class Utilisateur extends Entity{
     private string $nom;
