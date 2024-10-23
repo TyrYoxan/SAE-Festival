@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mes Billets - NRV.net</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="index.html">NRV.net</a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="mes-billets">
+    <div class="container">
+        <h1>Mes Billets</h1>
+
+        <!-- Billet d'exemple 1 -->
+        <div class="billet">
+            <h2>Soirée Rock Classique - 24 octobre 2024</h2>
+            <p><strong>Lieu :</strong> Salle Poirel, Nancy - 20h00</p>
+            <p><strong>Nombre de billets :</strong> 2 (1 normal, 1 réduit)</p>
+            <p><strong>Nom de l'acheteur :</strong> Jean Dupont</p>
+            <p><strong>Référence du billet :</strong> NRV2024-00012345</p>
+            <button class="btn" onclick="window.print()">Imprimer</button>
+        </div>
+
+        <!-- Billet d'exemple 2 -->
+        <div class="billet">
+            <h2>Soirée Métal Extrême - 25 octobre 2024</h2>
+            <p><strong>Lieu :</strong> Parc de la Pépinière - 19h30</p>
+            <p><strong>Nombre de billets :</strong> 1 (normal)</p>
+            <p><strong>Nom de l'acheteur :</strong> Jean Dupont</p>
+            <p><strong>Référence du billet :</strong> NRV2024-00012346</p>
+            <button class="btn" onclick="window.print()">Imprimer</button>
+        </div>
+
+        <!-- Message si aucun billet acheté -->
+        <div class="no-tickets" style="display:none;">
+            <p>Vous n'avez acheté aucun billet pour le moment.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Nancy Rock Vibration. Tous droits réservés.</p>
+</footer>
+</body>
+</html>

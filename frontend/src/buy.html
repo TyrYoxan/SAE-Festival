@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Achat de Billets - NRV.net</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="index.html">NRV.net</a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="programme.html">Programme</a></li>
+            <li><a href="signin.html">Se connecter</a></li>
+            <li><a href="signup.html">S'inscrire</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section id="achat-billets">
+    <div class="container">
+        <h1>Achat de Billets</h1>
+
+        <!-- Détails de la soirée -->
+        <div class="soiree-details">
+            <h2>Soirée Metal - 22 octobre 2024</h2>
+            <p><strong>Lieu :</strong> Parc de la Pépinière - 19h00</p>
+            <p><strong>Tarifs :</strong> 25€ (normal) / 18€ (réduit)</p>
+            <div class="spectacles">
+                <h3>Spectacles :</h3>
+                <ul>
+                    <li><strong>Metal Madness</strong> - Metallica, Iron Maiden - 19h30</li>
+                    <li><strong>Blackened Thrash</strong> - Slayer, Sepultura - 21h00</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Formulaire d'achat de billets -->
+        <form id="billet-form">
+            <h3>Sélectionnez vos billets</h3>
+
+            <div class="form-group">
+                <label for="billets-normaux">Nombre de billets (normal - 25€) :</label>
+                <input type="number" id="billets-normaux" name="billets-normaux" min="0" value="0">
+            </div>
+
+            <div class="form-group">
+                <label for="billets-reduits">Nombre de billets (réduit - 18€) :</label>
+                <input type="number" id="billets-reduits" name="billets-reduits" min="0" value="0">
+            </div>
+
+            <!-- Résumé du panier -->
+            <div class="panier-summary">
+                <h3>Résumé du Panier</h3>
+                <p><strong>Billets normaux :</strong> <span id="res-normaux">0</span> x 25€</p>
+                <p><strong>Billets réduits :</strong> <span id="res-reduits">0</span> x 18€</p>
+                <p><strong>Total :</strong> <span id="total">0€</span></p>
+            </div>
+
+            <button type="submit" class="btn">Ajouter au Panier</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Nancy Rock Vibration. Tous droits réservés.</p>
+</footer>
+
+<script>
+    // Mise à jour du récapitulatif du panier
+    const billetsNormauxInput = document.getElementById('billets-normaux');
+    const billetsReduitsInput = document.getElementById('billets-reduits');
+    const resNormaux = document.getElementById('res-normaux');
+    const resReduits = document.getElementById('res-reduits');
+    const totalElem = document.getElementById('total');
+
+    function updatePanier() {
+        const billetsNormaux = parseInt(billetsNormauxInput.value) || 0;
+        const billetsReduits = parseInt(billetsReduitsInput.value) || 0;
+        const total = (billetsNormaux * 25) + (billetsReduits * 18);
+        resNormaux.textContent = billetsNormaux;
+        resReduits.textContent = billetsReduits;
+        totalElem.textContent = total + '€';
+    }
+
+    billetsNormauxInput.addEventListener('input', updatePanier);
+    billetsReduitsInput.addEventListener('input', updatePanier);
+</script>
+</body>
+</html>
