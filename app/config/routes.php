@@ -6,6 +6,7 @@ use festival\application\action\GetThemesAction;
 use festival\application\action\HomeAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
+use festival\application\action\PostCreateUserAction;
 use festival\application\middlewares\Cors;
 
 return function (\Slim\App $app): \Slim\App {
@@ -22,7 +23,11 @@ return function (\Slim\App $app): \Slim\App {
     // details d'un spectacle
     $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle');
 
+    // liste des lieux
     $app->get('/lieux', GetLieuxAction::class)->setName('lieux');
+
+    // create user
+    $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
 
     return $app;
 };

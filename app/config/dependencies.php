@@ -4,18 +4,22 @@ use festival\application\action\GetLieuxAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
+use festival\application\action\PostCreateUserAction;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
 use festival\core\ReposotiryInterfaces\ThemeRepositoryInterface;
+use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use festival\core\services\lieux\serviceLieux;
 use festival\core\services\soirees\serviceSoirees;
 use festival\core\services\spectacles\serviceSpectacle;
 use festival\core\services\themes\serviceThemes;
+use festival\core\services\Utilisateur\serviceUtilisateur;
 use festival\infrastructure\repositories\PDOLieu;
 use festival\infrastructure\repositories\PDOSoiree;
 use festival\infrastructure\repositories\PDOSpectacle;
 use festival\infrastructure\repositories\PDOTheme;
+use festival\infrastructure\repositories\PDOUtilisateur;
 use Psr\Container\ContainerInterface;
 
 
@@ -57,6 +61,15 @@ return[
         return new PDOLieu($pdo);
     },
 
+    'user.pdo' => function (ContainerInterface $c) {
+        $pdo = new PDO(
+            'mysql:host=festival.db;dbname=festival;charset=utf8',
+            'root',
+            'root',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        return new PDOUtilisateur($pdo);
+    },
+
     SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
         return new serviceSpectacle($c->get('spectacle.pdo'));
     },
@@ -73,6 +86,10 @@ return[
         return new serviceLieux($c->get('lieu.pdo'));
     },
 
+    UtilisateurRepositoryInterface::class => function (ContainerInterface $c) {
+        return new serviceUtilisateur($c->get('user.pdo'));
+    },
+
     GetSpectaclesAction::class => function (ContainerInterface $c) {
         return new GetSpectaclesAction($c->get(SpectacleRepositoryInterface::class));
     },
@@ -87,5 +104,9 @@ return[
 
     GetLieuxAction::class => function (ContainerInterface $c) {
         return new GetLieuxAction($c->get(LieuRepositoryInterface::class));
-    }
+    },
+
+    PostCreateUserAction::class => function (ContainerInterface $c) {
+        return new PostCreateUserAction($c->get(UtilisateurRepositoryInterface::class));
+    },
 ];
