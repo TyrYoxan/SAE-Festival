@@ -1,14 +1,18 @@
 <?php
 
+use festival\application\action\GetLieuxAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
+use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
 use festival\core\ReposotiryInterfaces\ThemeRepositoryInterface;
+use festival\core\services\lieux\serviceLieux;
 use festival\core\services\soirees\serviceSoirees;
 use festival\core\services\spectacles\serviceSpectacle;
 use festival\core\services\themes\serviceThemes;
+use festival\infrastructure\repositories\PDOLieu;
 use festival\infrastructure\repositories\PDOSoiree;
 use festival\infrastructure\repositories\PDOSpectacle;
 use festival\infrastructure\repositories\PDOTheme;
@@ -44,6 +48,15 @@ return[
         return new PDOTheme($pdo);
     },
 
+    'lieu.pdo' => function (ContainerInterface $c) {
+        $pdo = new PDO(
+            'mysql:host=festival.db;dbname=festival;charset=utf8',
+            'root',
+            'root',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        return new PDOLieu($pdo);
+    },
+
     SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
         return new serviceSpectacle($c->get('spectacle.pdo'));
     },
@@ -56,6 +69,10 @@ return[
         return new serviceThemes($c->get('theme.pdo'));
     },
 
+    LieuRepositoryInterface::class => function (ContainerInterface $c) {
+        return new serviceLieux($c->get('lieu.pdo'));
+    },
+
     GetSpectaclesAction::class => function (ContainerInterface $c) {
         return new GetSpectaclesAction($c->get(SpectacleRepositoryInterface::class));
     },
@@ -66,5 +83,9 @@ return[
 
     GetThemesAction::class => function (ContainerInterface $c) {
         return new GetThemesAction($c->get(ThemeRepositoryInterface::class));
+    },
+
+    GetLieuxAction::class => function (ContainerInterface $c) {
+        return new GetLieuxAction($c->get(LieuRepositoryInterface::class));
     }
 ];

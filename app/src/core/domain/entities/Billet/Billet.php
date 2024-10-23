@@ -16,9 +16,9 @@ class Billet extends Entity
     private int $quantite;
     private int $date_achat;
 
-    public function __construct(int $id, int $id_soiree, int $id_utilisateur, int $categorie_tarif, int $quantite, int $date_achat)
+    public function __construct( int $id_soiree, int $id_utilisateur, int $categorie_tarif, int $quantite, int $date_achat)
     {
-        parent::__construct($id);
+
         $this->id_soiree = $id_soiree;
         $this->id_utilisateur = $id_utilisateur;
         $this->categorie_tarif = $categorie_tarif;

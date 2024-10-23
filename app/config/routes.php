@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use festival\application\action\GetLieuxAction;
 use festival\application\action\GetThemesAction;
 use festival\application\action\HomeAction;
 use festival\application\action\GetSoireeAction;
@@ -21,7 +22,7 @@ return function (\Slim\App $app): \Slim\App {
     // details d'un spectacle
     $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle');
 
-
+    $app->get('/lieux', GetLieuxAction::class)->setName('lieux');
 
     return $app;
 };

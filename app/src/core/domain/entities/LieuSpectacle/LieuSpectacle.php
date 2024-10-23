@@ -3,11 +3,10 @@ namespace festival\core\domain\entities\LieuSpectacle;
 
 use DateTime;
 use festival\core\domain\Entity\Entity;
+use festival\core\Dto\DtoLieuSpectacle;
 
-class LieuSpectacle extends Entity
-{
+class LieuSpectacle extends Entity{
     private String $name;
-    private DateTime $date;
 
     private String $address;
 
@@ -15,18 +14,21 @@ class LieuSpectacle extends Entity
 
     private int $nbrPlaceDebout;
 
-    private array $images;
+    private string $images;
 
 
-    public function __construct(string $id, string $name, DateTime $date, string $address, int $nbrPlaceAssise, int $nbrPlaceDebout, array $images)
+    public function __construct(string $name, string $address, int $nbrPlaceAssise, int $nbrPlaceDebout, string $images)
     {
-        parent::__construct($id);
         $this->name = $name;
-        $this->date = $date;
         $this->address = $address;
         $this->nbrPlaceAssise = $nbrPlaceAssise;
         $this->nbrPlaceDebout = $nbrPlaceDebout;
         $this->images = $images;
+    }
+
+
+    public function toDTO(): DtoLieuSpectacle{
+        return new DtoLieuSpectacle($this);
     }
 
     public function getName(): string
@@ -34,10 +36,6 @@ class LieuSpectacle extends Entity
         return $this->name;
     }
 
-    public function getDate(): DateTime
-    {
-        return $this->date;
-    }
 
     public function getAddress(): string
     {
@@ -54,7 +52,7 @@ class LieuSpectacle extends Entity
         return $this->nbrPlaceDebout;
     }
 
-    public function getImages(): array
+    public function getImages(): string
     {
         return $this->images;
     }

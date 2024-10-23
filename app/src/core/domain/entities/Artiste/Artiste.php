@@ -8,9 +8,8 @@ class Artiste extends Entity
     private string $name;
 
 
-    public function __construct(string $id, string $name)
+    public function __construct(string $name)
     {
-        parent::__construct($id);
         $this->name = $name;
 
     }

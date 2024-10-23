@@ -8,8 +8,7 @@ class Utilisateur extends Entity{
     private string $email;
     private string $password;
 
-    public function __construct(string $id, string $nom, string $email, string $password){
-        parent::__construct($id);
+    public function __construct(string $nom, string $email, string $password){
         $this->nom = $nom;
         $this->email = $email;
         $this->password = $password;
