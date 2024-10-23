@@ -22,5 +22,11 @@ class ServiceUtilisateur
         $stmt->bindValue(':mot_de_passe', $utilisateur->getPassword());
         $stmt->execute();
     }
-
+    public function getBilletsByUtilisateur(int $id_utilisateur)
+    {
+        $stmt = $this->db->prepare('SELECT * FROM Billet WHERE id_utilisateur = :id_utilisateur');
+        $stmt->bindValue(':id_utilisateur', $id_utilisateur);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
