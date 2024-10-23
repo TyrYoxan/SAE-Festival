@@ -46,6 +46,13 @@ class PDOUtilisateur implements UtilisateurRepositoryInterface{
         $stmt = $this->db->prepare('SELECT * FROM Billet WHERE id_utilisateur = :userId');
         $stmt->execute(['userId' => $userId]);
         $billets  = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $billets;
+
+        $billet = [];
+        foreach ($billets as $b){
+            $ticket = new Billet($b['id_soiree'], $b['id_utilisateur'], $b['categorie_tarif'], $b['quantite'], $b['date_achat']);
+            $ticket->setId($b['id_billet']);
+            $billet[] = $ticket;
+        }
+        return $billet;
     }
 }

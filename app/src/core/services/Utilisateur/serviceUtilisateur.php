@@ -33,6 +33,11 @@ class serviceUtilisateur implements serviceUtilisateurInterface{
 
     public function getBilletsByUser(string $userId): array {
         $billets = $this->utilisateurRepository->getBilletsByUser($userId);
-        return $billets;
+        $billet = [];
+
+        foreach ($billets as $b){
+            $billet[] = $b->toDTO();
+        }
+        return $billet;
     }
 }   

@@ -2,21 +2,21 @@
 namespace festival\core\domain\entities\Billet;
 
 use festival\core\domain\Entity\Entity;
+use festival\core\Dto\DtoBillet;
 
 
 /*Le tarif des billets d’entrée dépend de la soirée, mais existe toujours en deux catégories :
 tarif normal et tarif réduit (étudiants, demandeurs d’emploi, personnes en situation de
 handicap),*/
 
-class Billet extends Entity
-{
-    private int $id_soiree;
-    private int $id_utilisateur;
-    private int $categorie_tarif;
-    private int $quantite;
-    private int $date_achat;
+class Billet extends Entity{
+    private string $id_soiree;
+    private string $id_utilisateur;
+    private string $categorie_tarif;
+    private string $quantite;
+    private string $date_achat;
 
-    public function __construct( int $id_soiree, int $id_utilisateur, int $categorie_tarif, int $quantite, int $date_achat)
+    public function __construct( string $id_soiree, string $id_utilisateur, string $categorie_tarif, string $quantite, string $date_achat)
     {
 
         $this->id_soiree = $id_soiree;
@@ -25,5 +25,37 @@ class Billet extends Entity
         $this->quantite = $quantite;
         $this->date_achat = $date_achat;
     }
+
+
+    public function toDTO(): DtoBillet{
+        return new DtoBillet($this);
+    }
+
+    public function getIdSoiree(): string
+    {
+        return $this->id_soiree;
+    }
+
+    public function getIdUtilisateur(): string
+    {
+        return $this->id_utilisateur;
+    }
+
+    public function getCategorieTarif(): string
+    {
+        return $this->categorie_tarif;
+    }
+
+    public function getQuantite(): string
+    {
+        return $this->quantite;
+    }
+
+    public function getDateAchat(): string
+    {
+        return $this->date_achat;
+    }
+
+
 }
 

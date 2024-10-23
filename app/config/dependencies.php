@@ -126,6 +126,6 @@ return[
     },
 
     GetTicketByUserAction::class => function (ContainerInterface $c) {
-        return new GetTicketByUserAction($c->get(UtilisateurRepositoryInterface::class));
+        return new GetTicketByUserAction($c->get(serviceUtilisateurInterface::class));
     },
 ];
