@@ -58,4 +58,12 @@ class PDOSoiree implements SoireeRepositoryInterface{
 
         return $soirees;
     }
+
+    public function getPlacesVendues(string $soireeId) : int{
+        $stmt = $this->pdo->prepare('SELECT SUM(quantite) as places_vendues FROM Billet WHERE id_soiree = :soireeId');
+        $stmt->bindParam(':soireeId', $soireeId);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row['places_vendues'];
+    }
 }

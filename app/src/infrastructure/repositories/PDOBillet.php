@@ -25,7 +25,6 @@ class PDOBillet implements BilletRepositoryInterface{
         }
         return $billets;
     }
-    /*TODO A Verifier */
     public function creerBillet(int $soireeId, int $quantite, int $tarif ){
         $stmt = $this->pdo->prepare('INSERT INTO Billet (id_soiree, categorie_tarif, quantite) VALUES (:id_soiree, :categorie_tarif, :quantite)');
         $stmt->bindValue(':id_soiree', $soireeId);

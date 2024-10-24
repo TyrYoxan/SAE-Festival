@@ -6,5 +6,5 @@ interface serviceSoireeInterface{
 
     public function getSpectacles(string $id);
 
-
+    public function getPlacesVendues(string $soireeId);
 }
