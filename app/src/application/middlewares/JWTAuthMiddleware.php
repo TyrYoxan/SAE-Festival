@@ -2,27 +2,21 @@
 
 namespace festival\application\middlewares;
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException ;
 use Firebase\JWT\BeforeValidException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use festival\application\providers\auth\JWTAuthnProvider;
-use festival\core\dto\DtoAuth;
 
 class JWTAuthMiddleware{
 
-    public function __invoke(Request $rq, Response $rs, $next){
+    public function __invoke(Request $rq, Response $rs, callable $next): Response{
         try {
             $h = $rq->getHeader('Authorization')[0] ;
             $tokenstring = sscanf($h, "Bearer %s")[0];
 
-            $token = JWTAuthnProvider::class->getSignedInUser($tokenstring);
-
-            $auth = new DtoAuth($token->id, $token->email, $token->role);
-
+            $auth = JWTAuthnProvider::class->getSignedInUser($tokenstring);
 
         } catch (ExpiredException $e) {
             throw new \Exception("Token expired", 401);
