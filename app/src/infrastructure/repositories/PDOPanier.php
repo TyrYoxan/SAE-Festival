@@ -85,4 +85,15 @@ class PDOPanier implements PanierRepositoryInterface{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function validatePanier(string $id): void{
+        try {
+            $stmt = $this->db->prepare('UPDATE Panier SET etat = :etat WHERE id_utilisateur = :id;');
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':etat', 'valider');
+            $stmt->execute();
+        } catch (\PDOException $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

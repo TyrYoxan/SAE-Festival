@@ -9,6 +9,7 @@ use festival\application\action\GetThemesAction;
 use festival\application\action\GetTicketByUserAction;
 use festival\application\action\PostCreateUserAction;
 use festival\application\action\PostSigninAction;
+use festival\application\action\PostValidatePanierAction;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\PanierRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
@@ -159,4 +160,8 @@ return[
     GetAddBilletPanierAction::class => function (ContainerInterface $c) {
         return new GetAddBilletPanierAction($c->get(servicePanierInterface::class));
     },
+
+    PostValidatePanierAction::class => function (ContainerInterface $c) {
+        return new PostValidatePanierAction($c->get(servicePanierInterface::class));
+    }
 ];

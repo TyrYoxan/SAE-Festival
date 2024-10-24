@@ -29,7 +29,7 @@ class GetAddBilletPanierAction extends AbstractAction{
             if ($decodedData === false) {
                 return JsonRenderer::render($rs, 400, 'Invalid Base64 encoding');
             }
-            var_dump($decodedData);
+
             // Séparation des informations
             list($id_soiree, $quantite, $tarif) = explode(':', $decodedData);
 

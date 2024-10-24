@@ -11,6 +11,7 @@ use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\PostCreateUserAction;
 use festival\application\action\PostSigninAction;
+use festival\application\action\PostValidatePanierAction;
 use festival\application\middlewares\Cors;
 use festival\application\middlewares\JWTAuthMiddleware;
 
@@ -43,9 +44,16 @@ return function (\Slim\App $app): \Slim\App {
 
     // panier
     $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier');
+        //->add(new JWTAuthMiddleware());
 
     // ajout d'un billet au panier
     $app->post('/panier/{id_user}/ajouter', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
+        //->add(new JWTAuthMiddleware());
+
+    $app->post('/panier/{id_user}/valider', PostValidatePanierAction::class)->setName('validerPanier');
+        //->add(new JWTAuthMiddleware());
+
+    $app->post('/panier/{id_user}/payer', PostValidatePanierAction::class)->setName('validerPanier');
         //->add(new JWTAuthMiddleware());
 
     return $app;

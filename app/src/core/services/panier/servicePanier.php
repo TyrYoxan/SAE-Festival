@@ -37,4 +37,12 @@ class servicePanier implements servicePanierInterface{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function validatePanier(string $id): void{
+        try{
+            $this->panierRepository->validatePanier($id);
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage());
+        }
+    }
 }
