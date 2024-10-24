@@ -19,7 +19,6 @@ class Spectacle extends Entity
 
     public function __construct(string $title, array $artists, string $description, string $images, string $videoUrl, string $heure)
     {
-
         $this->title = $title;
         $this->artists = $artists;
         $this->description = $description;

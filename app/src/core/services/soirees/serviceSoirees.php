@@ -2,15 +2,24 @@
 
 namespace festival\core\services\soirees;
 
+
 use festival\core\Dto\DtoSoiree;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\services\soirees\serviceSoireeInterface;
+use festival\core\domain\entities\Billet\Billet;
+use festival\core\domain\entities\Panier\Panier;
+use festival\core\ReposotiryInterfaces\BilletRepositoryInterface;
 
 class serviceSoirees implements serviceSoireeInterface{
     private SoireeRepositoryInterface $soireeRepository;
+    private Panier $panier;
+    private $billetRepository;
 
     public function __construct(SoireeRepositoryInterface $soireeRepository){
         $this->soireeRepository = $soireeRepository;
+        $this->panier = new Panier();
+
+
     }
 
     public function getSpectacles(string $id):array{
@@ -20,5 +29,9 @@ class serviceSoirees implements serviceSoireeInterface{
             $soirees[] = $s->toDTO();
         }
         return $soirees;
+    }
+    public function ajouterBilletAuPanier(int $soireeId, int $quantite): void {
+        $billet = $this->billetRepository->creerBillet($soireeId, $quantite);
+        $this->panier->ajouterBillet($billet);
     }
 }

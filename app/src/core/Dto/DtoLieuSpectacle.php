@@ -3,10 +3,11 @@ namespace festival\core\Dto;
 
 use DateTime;
 use festival\core\domain\entities\LieuSpectacle\LieuSpectacle;
-class DtoLieuSpectacle
-{
+class DtoLieuSpectacle extends Dto implements \JsonSerializable{
+
+    protected int $id;
+
     protected string $name;
-    protected DateTime $date;
 
     protected string $address;
 
@@ -14,12 +15,11 @@ class DtoLieuSpectacle
 
     protected int $nbrPlaceDebout;
 
-    protected array $images;
+    protected string $images;
 
-    public function __construct(LieuSpectacle $lieuSpectacle)
-    {
+    public function __construct(LieuSpectacle $lieuSpectacle){
+        $this->id = $lieuSpectacle->getId();
         $this->name = $lieuSpectacle->getName();
-        $this->date = $lieuSpectacle->getDate();
         $this->address = $lieuSpectacle->getAddress();
         $this->nbrPlaceAssise = $lieuSpectacle->getNbrPlaceAssise();
         $this->nbrPlaceDebout = $lieuSpectacle->getNbrPlaceDebout();
@@ -29,8 +29,8 @@ class DtoLieuSpectacle
     public function jsonSerialize() : array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
-            'date' => $this->date,
             'address' => $this->address,
             'nbrPlaceAssise' => $this->nbrPlaceAssise,
             'nbrPlaceDebout' => $this->nbrPlaceDebout,

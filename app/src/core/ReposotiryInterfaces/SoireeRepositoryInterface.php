@@ -2,7 +2,6 @@
 
 namespace festival\core\ReposotiryInterfaces;
 
-use festival\core\domain\entities\Soiree\Soiree;
 
 interface SoireeRepositoryInterface{
 

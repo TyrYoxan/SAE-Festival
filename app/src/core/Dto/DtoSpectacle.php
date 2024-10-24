@@ -1,6 +1,5 @@
 <?php
 namespace festival\core\Dto;
-use DateTime;
 use festival\core\domain\entities\Spectacle\Spectacle;
 
 class DtoSpectacle extends Dto implements \JsonSerializable{

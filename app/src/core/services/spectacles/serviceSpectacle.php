@@ -15,4 +15,10 @@ class serviceSpectacle implements serviceSpectacleInterface{
         $spectacle = $this->spectacleRepository->getSpectacles();
         return $spectacle;
     }
+
+    public function getSpectaclesByFilter(?string $type, ?string $date, ?string $lieu)
+    {
+       $spectacle = $this->spectacleRepository->getSpectaclesByFilter($type, $date, $lieu);
+       return $spectacle;
+    }
 }
