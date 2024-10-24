@@ -8,6 +8,7 @@ use festival\core\services\lieux\serviceLieuxInterface;
 class serviceLieux implements serviceLieuxInterface{
     private LieuRepositoryInterface $lieuRepository;
 
+
     public function __construct(LieuRepositoryInterface $lieuRepository){
         $this->lieuRepository = $lieuRepository;
     }

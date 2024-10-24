@@ -24,7 +24,7 @@ class GetSoireeAction extends AbstractAction{
 
         $data = [
             'type' => 'collection',
-            'soiree' => $soiree,
+            'soiree' => $soiree[0],
         ];
 
         $rs = $rs->withHeader('Content-type', 'application/json');

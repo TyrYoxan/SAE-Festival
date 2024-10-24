@@ -17,7 +17,6 @@ class serviceSoirees implements serviceSoireeInterface{
 
     public function __construct(SoireeRepositoryInterface $soireeRepository){
         $this->soireeRepository = $soireeRepository;
-        $this->panier = new Panier();
 
 
     }

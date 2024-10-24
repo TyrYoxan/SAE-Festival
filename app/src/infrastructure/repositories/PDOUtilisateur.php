@@ -43,13 +43,17 @@ class PDOUtilisateur implements UtilisateurRepositoryInterface{
     }
 
     public function getBilletsByUser(string $userId): array {
-        $stmt = $this->db->prepare('SELECT * FROM Billet WHERE id_utilisateur = :userId');
+        $stmt = $this->db->prepare('SELECT * FROM Billet 
+                                        INNER JOIN Soiree ON Soiree.id_soiree = Billet.id_soiree 
+                                        INNER JOIN Utilisateur ON Utilisateur.uuid = Billet.id_utilisateur
+                                        INNER JOIN Lieu ON Soiree.id_lieu = Lieu.id_lieu
+                                        WHERE id_utilisateur = :userId');
         $stmt->execute(['userId' => $userId]);
         $billets  = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $billet = [];
         foreach ($billets as $b){
-            $ticket = new Billet($b['id_soiree'], $b['id_utilisateur'], $b['categorie_tarif'], $b['quantite'], $b['date_achat']);
+            $ticket = new Billet($b['nom_soiree'], $b['nom_utilisateur'], $b['categorie_tarif'], $b['quantite'],$b['nom_lieu'],$b['date'],$b['horaire_debut'], $b['date_achat']);
             $ticket->setId($b['id_billet']);
             $billet[] = $ticket;
         }

@@ -1,13 +1,10 @@
 <?php
 namespace festival\core\domain\entities\Billet;
 
+use DateTime;
 use festival\core\domain\Entity\Entity;
 use festival\core\Dto\DtoBillet;
 
-
-/*Le tarif des billets d’entrée dépend de la soirée, mais existe toujours en deux catégories :
-tarif normal et tarif réduit (étudiants, demandeurs d’emploi, personnes en situation de
-handicap),*/
 
 class Billet extends Entity
 {
@@ -15,10 +12,19 @@ class Billet extends Entity
     private String $id_utilisateur;
     private String $categorie_tarif;
     private String $quantite;
+
+    private string $lieu;
+
+    private string $date_soiree;
+    private string $heure_soiree;
+
+
     private String $date_achat;
 
-    public function __construct(string $id_soiree, string $id_utilisateur, string $categorie_tarif, string $quantite, string $date_achat)
-    {
+    public function __construct(string $id_soiree, string $id_utilisateur, string $categorie_tarif, string $quantite,string $lieu, string $date_soiree, string $heure_soiree, string $date_achat){
+        $this->lieu = $lieu;
+        $this->heure_soiree = $heure_soiree;
+        $this->date_soiree = $date_soiree;
         $this->id_soiree = $id_soiree;
         $this->id_utilisateur = $id_utilisateur;
         $this->categorie_tarif = $categorie_tarif;
@@ -56,6 +62,21 @@ class Billet extends Entity
         return $this->date_achat;
     }
 
+    public function getLieu(): string
+    {
+        return $this->lieu;
+    }
 
+    public function getDateSoiree(): string{
+
+        $date = new DateTime($this->date_soiree);
+        return $date->format('d F Y');
+    }
+
+    public function getHeureSoiree(): string
+    {
+        $heure = new DateTime($this->heure_soiree);
+        return $heure->format('H\hi');
+    }
 }
 

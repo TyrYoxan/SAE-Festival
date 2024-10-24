@@ -1,26 +1,25 @@
 <?php
+
 namespace festival\core\services\panier;
 
-class servicePanier implements servicePanierInterface
-{
-    private $panier;
+use festival\core\ReposotiryInterfaces\PanierRepositoryInterface;
+use festival\core\services\panier\servicePanierInterface;
 
-    public function __construct($panier)
-    {
-        $this->panier = $panier;
+class servicePanier implements servicePanierInterface{
+    private PanierRepositoryInterface $panierRepository;
+
+    public function __construct(PanierRepositoryInterface $panierRepository){
+        $this->panierRepository = $panierRepository;
     }
-
-    public function getPanierDetails(): array {
-        $billets = $this->panier->getBillets();
-        $total = 0;
-        foreach ($billets as $billet) {
-            $total += $billet->getPrix() * $billet->getQuantite();
+    public function getPanier(string $id): array{
+        $panier = $this->panierRepository->getPanier($id);
+        $paniers = [];
+        foreach ($panier as $p){
+            $paniers[] = $p->toDTO();
         }
-        return [
-            'billets' => $billets,
-            'total' => $total
-        ];
+        return $paniers;
     }
+
     public function ajouterBilletAuPanier(int $soireeId, int $quantite): void {
         $billet = $this->billetRepository->creerBillet($soireeId, $quantite);
         $this->panier->ajouterBillet($billet);

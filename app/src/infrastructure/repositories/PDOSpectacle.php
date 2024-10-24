@@ -23,24 +23,30 @@ class PDOSpectacle implements SpectacleRepositoryInterface{
     }
 
     public function getSpectaclesByFilter(?string $type, ?string $date, ?string $lieu){
+
         try{
-            $query ='SELECT Spectacle.*, GROUP_CONCAT(Artiste.nom_artiste SEPARATOR \', \') AS artistes, Soiree.date FROM Spectacle INNER JOIN Spectacle_Artiste ON Spectacle.id_spectacle = Spectacle_Artiste.id_spectacle INNER JOIN Artiste ON Spectacle_Artiste.id_artiste = Artiste.id_artiste INNER JOIN Soiree ON Spectacle.id_soiree = Soiree.id_soiree WHERE 1=1';
+            $query ='SELECT Spectacle.*, GROUP_CONCAT(Artiste.nom_artiste SEPARATOR \', \') AS artistes, Soiree.date 
+                    FROM Spectacle INNER JOIN Spectacle_Artiste ON Spectacle.id_spectacle = Spectacle_Artiste.id_spectacle 
+                    INNER JOIN Artiste ON Spectacle_Artiste.id_artiste = Artiste.id_artiste 
+                    INNER JOIN Soiree ON Spectacle.id_soiree = Soiree.id_soiree 
+                    INNER JOIN Thematique ON Thematique.id_thematique = Soiree.thematique
+                    WHERE 1=1';
             // Tableau pour les paramètres
             $params = [];
 
             // Ajouter des conditions dynamiques
-            if ($type !== 0) {
+            if ($type !== '0' && $type !== '') {
                 $query .= ' AND Soiree.thematique = :type';
                 $params[':type'] = $type;
             }
 
-            if ($date !== null) {
+            if ($date !== '0' && $date !== '') {
                 $query .= ' AND Soiree.date = :date';
                 $params[':date'] = $date;
             }
 
-            if ($lieu !== null) {
-                $query .= ' AND Soiree.nom_lieu = :lieu';
+            if ($lieu !== '0' && $lieu !== '') {
+                $query .= ' AND Soiree.id_lieu = :lieu';
                 $params[':lieu'] = $lieu;
             }
 

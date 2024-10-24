@@ -15,6 +15,7 @@ class JWTManager{
     }
 
     public function creatRefreshToken(array $payload): string{
+        $payload['exp'] = time()+getenv('JWT_REFRESH_EXPIRATION_TIME');
         return JWT::encode($payload, getenv('JWT_SECRET_KEY'), 'HS512');
     }
 

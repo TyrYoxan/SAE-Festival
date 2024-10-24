@@ -1,19 +1,29 @@
 <?php
 namespace festival\core\Dto;
 
-class DtoPanier
-{
-    protected array $billets = [];
+use festival\core\domain\entities\Panier\Panier;
 
-    public function __construct(array $billets)
+class DtoPanier extends Dto implements \JsonSerializable{
+    protected  string $id;
+    protected string $id_utilisateur;
+    protected array $id_soiree;
+    protected string $etat;
+
+    public function __construct(Panier $panier)
     {
-        $this->billets = $billets;
+        $this->id = $panier->getId();
+        $this->id_utilisateur = $panier->getIdUtilisateur();
+        $this->id_soiree = $panier->getIdSoiree();
+        $this->etat = $panier->getEtat();
     }
 
     public function jsonSerialize() : array
     {
         return [
-            'billets' => $this->billets
+            'id' => $this->id,
+                'id_utilisateur' => $this->id_utilisateur,
+                'id_soiree' => $this->id_soiree,
+                'etat' => $this->etat
         ];
     }
 }

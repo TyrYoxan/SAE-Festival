@@ -1,6 +1,7 @@
 <?php
 
 use festival\application\action\GetLieuxAction;
+use festival\application\action\GetPanierAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
@@ -8,17 +9,21 @@ use festival\application\action\GetTicketByUserAction;
 use festival\application\action\PostCreateUserAction;
 use festival\application\action\PostSigninAction;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
+use festival\core\ReposotiryInterfaces\PanierRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SpectacleRepositoryInterface;
 use festival\core\ReposotiryInterfaces\ThemeRepositoryInterface;
 use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use festival\core\services\lieux\serviceLieux;
+use festival\core\services\panier\servicePanier;
+use festival\core\services\panier\servicePanierInterface;
 use festival\core\services\soirees\serviceSoirees;
 use festival\core\services\spectacles\serviceSpectacle;
 use festival\core\services\themes\serviceThemes;
 use festival\core\services\Utilisateur\serviceUtilisateur;
 use festival\core\services\Utilisateur\serviceUtilisateurInterface;
 use festival\infrastructure\repositories\PDOLieu;
+use festival\infrastructure\repositories\PDOPanier;
 use festival\infrastructure\repositories\PDOSoiree;
 use festival\infrastructure\repositories\PDOSpectacle;
 use festival\infrastructure\repositories\PDOTheme;
@@ -74,6 +79,15 @@ return[
         return new PDOUtilisateur($pdo);
     },
 
+    'panier.pdo' => function (ContainerInterface $c) {
+        $pdo = new PDO(
+            'mysql:host=festival.db;dbname=festival;charset=utf8',
+            'root',
+            'root',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        return new PDOPanier($pdo);
+    },
+
     // Repositories
     SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
         return new serviceSpectacle($c->get('spectacle.pdo'));
@@ -95,9 +109,17 @@ return[
         return $c->get('user.pdo');
     },
 
+    PanierRepositoryInterface::class => function (ContainerInterface $c) {
+        return $c->get('panier.pdo');
+    },
+
     // Services
     serviceUtilisateurInterface::class => function (ContainerInterface $c) {
         return new serviceUtilisateur($c->get(UtilisateurRepositoryInterface::class));
+    },
+
+    servicePanierInterface::class => function (ContainerInterface $c) {
+        return new servicePanier($c->get(PanierRepositoryInterface::class));
     },
 
     // Actions
@@ -127,5 +149,9 @@ return[
 
     GetTicketByUserAction::class => function (ContainerInterface $c) {
         return new GetTicketByUserAction($c->get(serviceUtilisateurInterface::class));
+    },
+
+    GetPanierAction::class => function (ContainerInterface $c) {
+        return new GetPanierAction($c->get(servicePanierInterface::class));
     },
 ];

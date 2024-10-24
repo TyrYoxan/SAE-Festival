@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use festival\application\action\GetLieuxAction;
+use festival\application\action\GetPanierAction;
 use festival\application\action\GetThemesAction;
 use festival\application\action\GetTicketByUserAction;
 use festival\application\action\HomeAction;
@@ -40,7 +41,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
     // panier
-    $app->get('/panier', GetPAnierAction::class)->setName('panier');
+    $app->get('/panier/{id}', GetPanierAction::class)->setName('panier');
 
     return $app;
 };
