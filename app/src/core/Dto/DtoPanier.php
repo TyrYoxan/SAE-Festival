@@ -26,7 +26,7 @@ class DtoPanier extends Dto implements \JsonSerializable{
         return [
             'id' => $this->id,
                 'id_utilisateur' => $this->id_utilisateur,
-                'id_soiree' => $this->id_soiree,
+                'soirees' => $this->id_soiree,
                 'etat' => $this->etat
         ];
     }
