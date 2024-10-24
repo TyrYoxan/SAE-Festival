@@ -45,7 +45,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier');
 
     // ajout d'un billet au panier
-    $app->get('/panier/ajouter/{id_panier}/{id_soiree}/{quantite}', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
+    $app->post('/panier/{id_user}/ajouter', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
         //->add(new JWTAuthMiddleware());
 
     return $app;

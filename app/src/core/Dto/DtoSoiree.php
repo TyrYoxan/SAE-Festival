@@ -6,6 +6,7 @@ use festival\core\domain\entities\Soiree\Soiree;
 use festival\core\domain\entities\Spectacle\Spectacle;
 
 class DtoSoiree extends Dto implements \JsonSerializable{
+    protected string $id;
     protected String $name;
     protected String $theme;
     protected string $date;
@@ -16,6 +17,8 @@ class DtoSoiree extends Dto implements \JsonSerializable{
 
 
     public function __construct(Soiree $soiree){
+
+      $this->id = $soiree->getid();
       $this->name = $soiree->getname();
       $this->theme = $soiree->gettheme();
       $this->date = $soiree->getdate();
@@ -29,6 +32,7 @@ class DtoSoiree extends Dto implements \JsonSerializable{
     public function jsonSerialize() : array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'theme' => $this->theme,
             'date' => $this->date,

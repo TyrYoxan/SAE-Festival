@@ -17,10 +17,12 @@ class Soiree extends Entity{
     protected string $date;
     protected string $hour;
     protected string $lieu;
+    protected ?string $quantite;
     protected array $spectacles;
     protected array $tarifs;
 
-    public function __construct(string $name, string $theme, string $date, string $hour, string $place, array $spectacles, array $tarifs){
+    public function __construct(string $name, string $theme, string $date, string $hour, string $quantite = null, string $place, array $spectacles, array $tarifs){
+        $this->quantite = $quantite;
         $this->name = $name;
         $this->theme = $theme;
         $this->date = $date;
@@ -56,6 +58,11 @@ class Soiree extends Entity{
 
     public function getdate(): string {
         return $this->date;
+    }
+
+    public function getQuantite(): ?string
+    {
+        return $this->quantite;
     }
 
     public function getheure(): string {

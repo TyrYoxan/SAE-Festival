@@ -51,7 +51,7 @@ class PDOSoiree implements SoireeRepositoryInterface{
         foreach ($row as $r){
             $tarifs[] = $r['tarif_normal'];
             $tarifs[] = $r['tarif_reduit'];
-            $soiree = new Soiree($r['nom_soiree'], $r['nom_thematique'],  $r['date'], $r['horaire_debut'], $r['nom_lieu'],$spectacles, $tarifs);
+            $soiree = new Soiree($r['nom_soiree'], $r['nom_thematique'],  $r['date'], $r['horaire_debut'],null, $r['nom_lieu'],$spectacles, $tarifs);
             $soiree->setId($r['id_soiree']);
             $soirees[] = $soiree;
         }

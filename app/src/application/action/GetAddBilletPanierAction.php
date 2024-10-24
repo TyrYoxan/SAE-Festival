@@ -16,10 +16,33 @@ class GetAddBilletPanierAction extends AbstractAction{
         $this->servicePanier = $servicePanier;
     }
 
-    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface{
-        var_dump($args);
-        $this->servicePanier->ajouterBilletAuPanier($args['id_panier'], (int) $args['id_soiree'], $args['quantite']);
-        $rs = $rs->withHeader('Content-type', 'application/json');
-        return JsonRenderer::render($rs, 201);
+    public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface {
+        try {
+            // Récupération et décodage des informations d'autorisation
+            $data = $rq->getHeader('Authorization')[0] ?? null;
+            if (!$data) {
+                return JsonRenderer::render($rs, 401, 'Authorization header missing');
+            }
+
+            $authData = str_replace('Basic ', '', $data);
+            $decodedData = base64_decode($authData);
+            if ($decodedData === false) {
+                return JsonRenderer::render($rs, 400, 'Invalid Base64 encoding');
+            }
+            var_dump($decodedData);
+            // Séparation des informations
+            list($id_soiree, $quantite, $tarif) = explode(':', $decodedData);
+
+
+            // Appel du service pour ajouter le billet au panier
+            $this->servicePanier->ajouterBilletAuPanier($args['id_user'], (int) $id_soiree, (int) $quantite, (float) $tarif);
+
+            // Réponse réussie
+            $rs = $rs->withHeader('Content-Type', 'application/json');
+            return JsonRenderer::render($rs, 201, ['message' => 'Billet ajouté avec succès']);
+        } catch (\Exception $e) {
+            return JsonRenderer::render($rs, 500, 'Une erreur est survenue: ' . $e->getMessage());
+        }
     }
+
 }
