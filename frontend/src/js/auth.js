@@ -2,9 +2,12 @@ const signIn = () => {
     let email = document.querySelector("#email").value;
     let password = document.querySelector("#password").value;
 
-    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/users/signin`, {
+    const base64Credentials = btoa(`${email}:${password}`);
+
+    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/users/signin', {
         method: 'POST',
         headers: {
+            'Authorization': `Basic ${base64Credentials}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
