@@ -1,5 +1,6 @@
 <?php
 
+use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetPanierAction;
 use festival\application\action\GetSoireeAction;
@@ -153,5 +154,9 @@ return[
 
     GetPanierAction::class => function (ContainerInterface $c) {
         return new GetPanierAction($c->get(servicePanierInterface::class));
+    },
+
+    GetAddBilletPanierAction::class => function (ContainerInterface $c) {
+        return new GetAddBilletPanierAction($c->get(servicePanierInterface::class));
     },
 ];

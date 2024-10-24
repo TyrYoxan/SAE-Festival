@@ -20,8 +20,11 @@ class servicePanier implements servicePanierInterface{
         return $paniers;
     }
 
-    public function ajouterBilletAuPanier(int $soireeId, int $quantite): void {
-        $billet = $this->billetRepository->creerBillet($soireeId, $quantite);
-        $this->panier->ajouterBillet($billet);
+    public function ajouterBilletAuPanier(string $id_panier, int $id_soiree, int $quantite): void {
+        try{
+            $this->panierRepository->ajouterBilletAuPanier($id_panier, $id_soiree, $quantite);
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage());
+        }
     }
 }

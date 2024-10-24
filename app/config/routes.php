@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetPanierAction;
 use festival\application\action\GetThemesAction;
@@ -34,14 +35,18 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
 
     // liste des billets
-    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
-        //->add(new JWTAuthMiddleware());
+    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets')
+        ->add(new JWTAuthMiddleware());
 
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
     // panier
-    $app->get('/panier/{id}', GetPanierAction::class)->setName('panier');
+    $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier');
+
+    // ajout d'un billet au panier
+    $app->get('/panier/ajouter/{id_panier}/{id_soiree}/{quantite}', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
+        //->add(new JWTAuthMiddleware());
 
     return $app;
 };

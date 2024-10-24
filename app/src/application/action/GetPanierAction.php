@@ -17,7 +17,7 @@ class GetPanierAction extends AbstractAction{
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface{
-        $panier = $this->servicePanier->getPanier($args['id']);
+        $panier = $this->servicePanier->getPanier($args['id_user']);
         $data = [
             'type' => 'collection',
             'panier' => $panier[0],
