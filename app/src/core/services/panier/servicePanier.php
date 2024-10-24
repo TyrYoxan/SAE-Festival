@@ -14,11 +14,21 @@ class servicePanier implements servicePanierInterface{
     public function getPanier(string $id): array{
         $panier = $this->panierRepository->getPanier($id);
         $paniers = [];
-        foreach ($panier as $p){
-            $paniers[] = $p->toDTO();
+        foreach ($panier as $p) {
+            $soirees = [];
+            foreach ($p->getIdSoiree() as $s) {
+                $soirees[] = $s->toOutputDTO();
+            }
+
+
+            $panierDTO = $p->toDTO();
+            $panierDTO->setSoirees($soirees);
+            $paniers[] = $panierDTO;
         }
+
         return $paniers;
     }
+
 
     public function ajouterBilletAuPanier(string $id_panier, int $id_soiree, int $quantite): void {
         try{

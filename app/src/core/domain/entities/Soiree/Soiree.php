@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeInterface;
 use festival\core\domain\entities\Spectacle\Spectacle;
 use festival\core\domain\Entity\Entity;
+use festival\core\Dto\DtoOutPutSoiree;
 use festival\core\Dto\DtoSoiree;
 use festival\core\Dto\DtoSpectacle;
 
@@ -35,10 +36,13 @@ class Soiree extends Entity{
         }, $this->spectacles);
 
         $this->spectacles = $dtoSpectacles;
-        // Créer et retourner le DTO de Soiree avec les spectacles convertis
         $dtoSoiree = new DtoSoiree($this);
 
         return $dtoSoiree;
+    }
+
+    public function toOutputDTO(){
+        return new DtoOutPutSoiree($this);
     }
 
     // Ajoute les getters

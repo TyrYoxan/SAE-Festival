@@ -17,6 +17,10 @@ class DtoPanier extends Dto implements \JsonSerializable{
         $this->etat = $panier->getEtat();
     }
 
+    public function setSoirees(array $soirees): void {
+        $this->id_soiree = $soirees;
+    }
+
     public function jsonSerialize() : array
     {
         return [
