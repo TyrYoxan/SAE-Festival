@@ -5,7 +5,6 @@ namespace festival\infrastructure\repositories;
 use DateTime;
 use festival\core\domain\entities\Soiree\Soiree;
 use festival\core\domain\entities\Spectacle\Spectacle;
-use festival\core\domain\entities\Theme\Theme;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
 use PDO;
 
@@ -64,6 +63,30 @@ class PDOSoiree implements SoireeRepositoryInterface{
         $stmt->bindParam(':soireeId', $soireeId);
         $stmt->execute();
         $row = $stmt->fetch();
+        if($row['places_vendues'] === null){
+            return 0;
+        }
         return $row['places_vendues'];
+    }
+
+    function getPlacesDisponibles(string $soireeId) : int{
+        $stmt = $this->pdo->prepare("SELECT SUM(places_assises + places_debout) as places_disponibles 
+                                            FROM Lieu 
+                                            WHERE id_lieu IN (SELECT id_lieu 
+                                                              FROM Soiree 
+                                                              WHERE id_soiree = :soireeId)");
+        $stmt->bindParam(':soireeId', $soireeId);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row['places_disponibles'] - $this->getPlacesVendues($soireeId);
+    }
+
+    public function verfierPlace(array $id_soiree): bool{
+        foreach ($id_soiree as $s){
+            if($this->getPlacesDisponibles($s) === 0){
+                return false;
+            }
+        }
+        return true;
     }
 }

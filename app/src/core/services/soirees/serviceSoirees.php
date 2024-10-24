@@ -34,4 +34,8 @@ class serviceSoirees implements serviceSoireeInterface{
         return $this->soireeRepository->getPlacesVendues($soireeId);
     }
 
+    public function verfierPlace(array $id_soiree)
+    {
+        return $this->soireeRepository->verfierPlace($id_soiree);
+    }
 }

@@ -96,4 +96,26 @@ class PDOPanier implements PanierRepositoryInterface{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function payerPanier(string $id): array{
+        try{
+            $stmt = $this->db->prepare('UPDATE Panier SET etat = :etat WHERE id_utilisateur = :id;');
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':etat', 'payer');
+            $stmt->execute();
+
+            $stmt = $this->db->prepare('SELECT id_soiree, quantite, Panier_Soiree.categorie_tarif 
+                                            FROM Panier 
+                                            INNER JOIN Panier_Soiree ON Panier.id_panier = Panier_Soiree.id_panier 
+                                            WHERE id_utilisateur = :id AND etat = :etat');
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':etat', 'payer');
+            $stmt->execute();
+
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $row;
+        }catch (\PDOException $e){
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

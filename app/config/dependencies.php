@@ -2,14 +2,17 @@
 
 use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
+use festival\application\action\GetnbPlacesVenduesAction;
 use festival\application\action\GetPanierAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\GetThemesAction;
 use festival\application\action\GetTicketByUserAction;
 use festival\application\action\PostCreateUserAction;
+use festival\application\action\PostPayerPanierAction;
 use festival\application\action\PostSigninAction;
 use festival\application\action\PostValidatePanierAction;
+use festival\core\ReposotiryInterfaces\BilletRepositoryInterface;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\PanierRepositoryInterface;
 use festival\core\ReposotiryInterfaces\SoireeRepositoryInterface;
@@ -24,6 +27,7 @@ use festival\core\services\spectacles\serviceSpectacle;
 use festival\core\services\themes\serviceThemes;
 use festival\core\services\Utilisateur\serviceUtilisateur;
 use festival\core\services\Utilisateur\serviceUtilisateurInterface;
+use festival\infrastructure\repositories\PDOBillet;
 use festival\infrastructure\repositories\PDOLieu;
 use festival\infrastructure\repositories\PDOPanier;
 use festival\infrastructure\repositories\PDOSoiree;
@@ -90,6 +94,15 @@ return[
         return new PDOPanier($pdo);
     },
 
+    'billet.pdo' => function (ContainerInterface $c) {
+        $pdo = new PDO(
+            'mysql:host=festival.db;dbname=festival;charset=utf8',
+            'root',
+            'root',
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+        return new PDOBillet($pdo);
+    },
+
     // Repositories
     SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
         return new serviceSpectacle($c->get('spectacle.pdo'));
@@ -115,13 +128,17 @@ return[
         return $c->get('panier.pdo');
     },
 
+    BilletRepositoryInterface::class => function (ContainerInterface $c) {
+        return $c->get('billet.pdo');
+    },
+
     // Services
     serviceUtilisateurInterface::class => function (ContainerInterface $c) {
         return new serviceUtilisateur($c->get(UtilisateurRepositoryInterface::class));
     },
 
     servicePanierInterface::class => function (ContainerInterface $c) {
-        return new servicePanier($c->get(PanierRepositoryInterface::class));
+        return new servicePanier($c->get(PanierRepositoryInterface::class), $c->get(BilletRepositoryInterface::class));
     },
 
     // Actions
@@ -163,5 +180,13 @@ return[
 
     PostValidatePanierAction::class => function (ContainerInterface $c) {
         return new PostValidatePanierAction($c->get(servicePanierInterface::class));
-    }
+    },
+
+    GetnbPlacesVenduesAction::class => function (ContainerInterface $c) {
+        return new GetnbPlacesVenduesAction($c->get(SoireeRepositoryInterface::class));
+    },
+
+    PostPayerPanierAction::class => function (ContainerInterface $c) {
+        return new PostPayerPanierAction($c->get(servicePanierInterface::class), $c->get(SoireeRepositoryInterface::class));
+    },
 ];

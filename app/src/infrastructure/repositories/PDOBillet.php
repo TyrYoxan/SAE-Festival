@@ -13,21 +13,10 @@ class PDOBillet implements BilletRepositoryInterface{
         $this->pdo = $pdo;
     }
 
-    public function getBillets(): array{
-        $stmt = $this->pdo->prepare('SELECT * FROM Billet;');
-        $stmt->execute();
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $billets = [];
-        foreach ($rows as $row){
-            $billet = new Billet($row['id_soiree'], $row['id_utilisateur'], $row['categorie_tarif'], $row['quantite'], $row['date_achat']);
-            $billet->setId($row['id_billet']);
-            $billets[] = $billet;
-        }
-        return $billets;
-    }
-    public function creerBillet(int $soireeId, int $quantite, int $tarif ){
-        $stmt = $this->pdo->prepare('INSERT INTO Billet (id_soiree, categorie_tarif, quantite) VALUES (:id_soiree, :categorie_tarif, :quantite)');
+    public function creerBillet(int $soireeId, int $quantite, string $tarif, string $id_utilisateur): void{
+        $stmt = $this->pdo->prepare('INSERT INTO Billet (id_utilisateur, id_soiree, categorie_tarif, quantite) VALUES (:id_user, :id_soiree, :categorie_tarif, :quantite)');
         $stmt->bindValue(':id_soiree', $soireeId);
+        $stmt->bindValue(':id_user', $id_utilisateur);
         $stmt->bindValue(':categorie_tarif', $tarif);
         $stmt->bindValue(':quantite', $quantite);
         $stmt->execute();

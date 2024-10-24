@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class GetPlaceVenduAction extends AbstractAction{
+class GetnbPlacesVenduesAction extends AbstractAction{
     private serviceSoireeInterface $serviceSoiree;
 
     public function __construct(serviceSoireeInterface $serviceSoiree){
@@ -16,10 +16,10 @@ class GetPlaceVenduAction extends AbstractAction{
     }
 
     public function __invoke(ServerRequestInterface $rq, ResponseInterface $rs, array $args): ResponseInterface{
-        $soireeId = $args['id'];
+        $soireeId = $args['id_soiree'];
         $placesVendues = $this->serviceSoiree->getPlacesVendues($soireeId);
         $data = [
-            'type' => 'collection',
+            'type' => 'ressource',
             'placesVendues' => $placesVendues,
         ];
         $rs = $rs->withHeader('Content-type', 'application/json');

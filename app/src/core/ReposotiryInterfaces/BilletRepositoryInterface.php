@@ -1,8 +1,6 @@
 <?php
 namespace festival\core\ReposotiryInterfaces;
 
-interface BilletRepositoryInterface
-{
- public function getBillets(): array;
- public function creerBillet(int $soireeId, int $quantite , int $tarif);
+interface BilletRepositoryInterface{
+ public function creerBillet(int $soireeId, int $quantite , string $tarif, string $id_utilisateur): void;
 }

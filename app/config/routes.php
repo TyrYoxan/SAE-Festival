@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
+use festival\application\action\GetnbPlacesVenduesAction;
 use festival\application\action\GetPanierAction;
 use festival\application\action\GetThemesAction;
 use festival\application\action\GetTicketByUserAction;
@@ -10,6 +11,7 @@ use festival\application\action\HomeAction;
 use festival\application\action\GetSoireeAction;
 use festival\application\action\GetSpectaclesAction;
 use festival\application\action\PostCreateUserAction;
+use festival\application\action\PostPayerPanierAction;
 use festival\application\action\PostSigninAction;
 use festival\application\action\PostValidatePanierAction;
 use festival\application\middlewares\Cors;
@@ -53,8 +55,10 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/panier/{id_user}/valider', PostValidatePanierAction::class)->setName('validerPanier');
         //->add(new JWTAuthMiddleware());
 
-    $app->post('/panier/{id_user}/payer', PostValidatePanierAction::class)->setName('validerPanier');
+    $app->post('/panier/{id_user}/payer', PostPayerPanierAction::class)->setName('payerPanier');
         //->add(new JWTAuthMiddleware());
+
+    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues');
 
     return $app;
 };
