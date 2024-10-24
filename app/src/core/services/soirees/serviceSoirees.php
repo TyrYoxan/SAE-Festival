@@ -30,8 +30,5 @@ class serviceSoirees implements serviceSoireeInterface{
         }
         return $soirees;
     }
-    public function ajouterBilletAuPanier(int $soireeId, int $quantite): void {
-        $billet = $this->billetRepository->creerBillet($soireeId, $quantite);
-        $this->panier->ajouterBillet($billet);
-    }
+
 }

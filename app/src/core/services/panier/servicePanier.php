@@ -21,4 +21,8 @@ class servicePanier implements servicePanierInterface
             'total' => $total
         ];
     }
+    public function ajouterBilletAuPanier(int $soireeId, int $quantite): void {
+        $billet = $this->billetRepository->creerBillet($soireeId, $quantite);
+        $this->panier->ajouterBillet($billet);
+    }
 }

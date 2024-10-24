@@ -6,5 +6,5 @@ interface serviceSoireeInterface{
 
     public function getSpectacles(string $id);
 
-    public function ajouterBilletAuPanier(int $soireeId, int $quantite): void;
+
 }
