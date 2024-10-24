@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NRV.net - Nancy Rock Vibration</title>
+  <meta name="description" content="Billetterie officielle du festival Nancy Rock Vibration. Découvrez le programme des spectacles et achetez vos billets en ligne.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">NRV.net</a>
+    <ul>
+      <li><a href="index.html">Acceuil</a></li>
+      <li><a id="auth-email" href="#compte">Mon compte</a></li>
+      <li><a onclick="signOut()" href="#">Deconnexion</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section id="profile">
+    <h2>Nom PRENOM</h2>
+    <h2>Addresse Email</h2>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2024 NRV.net - Nancy Rock Vibration</p>
+  <ul>
+    <li><a href="#mentions-legales">Mentions légales</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/auth.js"></script>
+
+</html>

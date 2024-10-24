@@ -14,44 +14,23 @@
     </div>
     <nav>
         <ul>
-            <li><a href="index.html">Accueil</a></li>
+            <li><a href="#programme">Programme</a></li>
+            <li><a href="#acheter-billets">Acheter des billets</a></li>
+            <li><a href="#lieux">Lieux</a></li>
+            <li><a id="auth-email" href="signin.html">Connexion</a></li>
+            <li style="display: none;" id="auth-signout"><a onclick="signOut()" href="#">Deconnexion</a></li>
         </ul>
     </nav>
 </header>
 
 <section id="mes-billets">
-    <div class="container">
-        <h1>Mes Billets</h1>
-
-        <!-- Billet d'exemple 1 -->
-        <div class="billet">
-            <h2>Soirée Rock Classique - 24 octobre 2024</h2>
-            <p><strong>Lieu :</strong> Salle Poirel, Nancy - 20h00</p>
-            <p><strong>Nombre de billets :</strong> 2 (1 normal, 1 réduit)</p>
-            <p><strong>Nom de l'acheteur :</strong> Jean Dupont</p>
-            <p><strong>Référence du billet :</strong> NRV2024-00012345</p>
-            <button class="btn" onclick="window.print()">Imprimer</button>
-        </div>
-
-        <!-- Billet d'exemple 2 -->
-        <div class="billet">
-            <h2>Soirée Métal Extrême - 25 octobre 2024</h2>
-            <p><strong>Lieu :</strong> Parc de la Pépinière - 19h30</p>
-            <p><strong>Nombre de billets :</strong> 1 (normal)</p>
-            <p><strong>Nom de l'acheteur :</strong> Jean Dupont</p>
-            <p><strong>Référence du billet :</strong> NRV2024-00012346</p>
-            <button class="btn" onclick="window.print()">Imprimer</button>
-        </div>
-
-        <!-- Message si aucun billet acheté -->
-        <div class="no-tickets" style="display:none;">
-            <p>Vous n'avez acheté aucun billet pour le moment.</p>
-        </div>
-    </div>
 </section>
 
 <footer>
     <p>&copy; 2024 Nancy Rock Vibration. Tous droits réservés.</p>
 </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/tickets.js"></script>
+<script src="js/auth.js"></script>
 </html>

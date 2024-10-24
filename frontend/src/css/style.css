@@ -453,3 +453,133 @@ footer ul li a:hover {
     border-radius: 10px;
     margin-right: 12px;
 }
+
+.venue-list img {
+    height: 120px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.shopping-cart {
+    border-radius: 50%;
+    background: white;
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #181818;
+}
+
+.shopping-cart:hover {
+    background: #d7d7d7;
+    transition: 0.35s;
+}
+
+.shopping-cart-content {
+    height: auto;
+    width: 300px;
+    position: absolute;
+    background: #181818;
+    top: 30px;
+    right: 15px;
+    border-radius: 8px;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sep {
+    width: 100%;
+    height: 1px;
+    background-color: #bbbbbb;
+    margin: 10px auto;
+}
+
+.shopping-cart-count {
+    border-radius: 50%;
+    background: green;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #181818;
+}
+
+.shopping-cart .fa-trash {
+    color: red;
+}
+
+.shopping-cart button {
+    width: 100%;
+    background: darkolivegreen;
+    border-radius: 8px;
+    border: 0;
+    padding: 10px 0;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.shopping-cart button:hover {
+    cursor: pointer;
+    background: #4a5926;
+    transition: .3s;
+}
+
+#shopping-cart-items {
+    overflow: auto;
+    max-height: 400px;
+    margin-bottom: 10px;
+}
+
+#buy {
+    padding: 60px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.buy-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cart, .payment-info {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%; /* Ajuste la largeur pour un affichage côte à côte */
+}
+
+.cart h2, .payment-info h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.total {
+    margin-top: 20px;
+    font-size: 1.5em;
+}
+
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .buy-container {
+        flex-direction: column;
+    }
+}

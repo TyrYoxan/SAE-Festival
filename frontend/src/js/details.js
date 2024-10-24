@@ -11,15 +11,22 @@ const soireeTemplate = `
         <p class="date"><strong>Date :</strong> {{date}}</p>
         <p class="heure"><strong>Heure :</strong> {{hour}}</p>
         <p class="lieu"><strong>Lieu :</strong> {{lieu}}</p>
-        <p class="tarifs">
-            <strong>Tarifs :</strong>
-            <ul>
-                <li>Tarif Normal : {{tarif_normal}} €</li>
-                <li>Tarif Réduit (étudiants, demandeurs d'emploi) : {{tarif_reduit}} €</li>
-            </ul>
-        </p>
-        
+        <strong>Tarifs :</strong>
+        <ul>
+            <li>
+                <input checked type="radio" id="tarif_normal" name="tarif" value="t_normal">
+                <label for="tarif_normal">Tarif Normal : {{tarif_normal}} €</label>
+            </li>
+            <li>
+                <input type="radio" id="tarif_reduit" name="tarif" value="t_reduit">
+                <label for="tarif_reduit">Tarif Réduit (étudiants, demandeurs d'emploi) : {{tarif_reduit}} €</label>
+            </li>
+        </ul>
+        <button onclick="addToCart({{id}})" class="btn">Ajouter au Panier</button>
+        <input min="1" style="width: 40px" id="cart-qte" type="number" value="1" />
+        <br /><br />
         <h2>Spectacles Prévus</h2>
+        <br />
         {{#spectacles}}
         <div class="spectacle">
             <h3>{{title}}</h3>

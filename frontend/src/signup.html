@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="fr">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Inscription - NRV.net</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Connexion - NRV.net</title>
     <link rel="stylesheet" href="css/style.css"> <!-- Lien vers le fichier CSS -->
 </head>
 <body>
@@ -19,19 +15,20 @@
     <nav>
         <ul>
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="signin.html">Se connecter</a></li>
+            <li><a href="signin.html">Connexion</a></li>
         </ul>
     </nav>
 </header>
 
-<section id="signup">
+<section id="signin">
     <div class="container">
         <h1>Inscription</h1>
-        <p>Créez un compte pour acheter des billets et gérer vos réservations.</p>
+        <p>Inscrivez vous pour pouvoir acheter des billets sur la plateforme.</p>
+        <p id="auth-error" style="color: red;"></p>
 
-        <form action="/api/utilisateurs/signup" method="POST">
+        <div method="POST">
             <div class="form-group">
-                <label for="name">Nom complet</label>
+                <label for="name">Nom Complet</label>
                 <input type="text" id="name" name="name" required>
             </div>
 
@@ -46,14 +43,13 @@
             </div>
 
             <div class="form-group">
-                <label for="confirm_password">Confirmez le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
+                <label for="password2">Confirmer mot de passe</label>
+                <input type="password" id="password2" name="password2" required>
             </div>
+            <button onclick="signUp()" type="submit" class="btn">S'inscrire</button>
+        </div>
 
-            <button type="submit" class="btn">S'inscrire</button>
-        </form>
-
-        <p>Déjà un compte ? <a href="signin.html">Se connecter</a></p>
+        <p>Deja inscrit ? <a href="signin.html">Se connecter</a></p>
     </div>
 </section>
 
@@ -61,10 +57,12 @@
     <p>&copy; 2024 Nancy Rock Vibration. Tous droits réservés.</p>
 </footer>
 </body>
-</html>
-</title>
-</head>
-<body>
-
-</body>
+<script src="js/auth.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        if(isLoggedIn()) {
+            window.location.href = "profile.html";
+        }
+    });
+</script>
 </html>

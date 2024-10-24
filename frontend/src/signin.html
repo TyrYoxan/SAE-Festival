@@ -24,6 +24,7 @@
     <div class="container">
         <h1>Connexion</h1>
         <p>Connectez-vous à votre compte pour accéder à vos billets et à d'autres fonctionnalités.</p>
+        <p id="auth-error" style="color: red;"></p>
 
         <div method="POST">
             <div class="form-group">
@@ -48,4 +49,11 @@
 </footer>
 </body>
 <script src="js/auth.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        if(isLoggedIn()) {
+            window.location.href = "profile.html";
+        }
+    });
+</script>
 </html>

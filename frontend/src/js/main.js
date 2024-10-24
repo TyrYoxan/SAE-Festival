@@ -1,7 +1,8 @@
-window.onload = () => {
+window.addEventListener('load', function() {
     loadSpectacles();
     loadStyles();
-}
+    loadSLieux();
+});
 
 const spectacleTemplate = `  
     {{#spectacles}}          
@@ -20,6 +21,22 @@ const styleTemplate = `
     {{#theme}}
     <option value="{{id}}">{{name}}</option>
     {{/theme}}`;
+
+const lieuTemplate = `
+    <option value="0">Tous les lieux</option>
+    {{#lieux}}
+    <option value="{{id}}">{{name}}</option>
+    {{/lieux}}`;
+
+const lieuDetailsTemplate = `
+        {{#lieux}}
+        <li>
+            <h3>{{name}}</h3>
+            <p>Adresse: {{address}}</p>
+            <p>Capacité: {{nbrPlaceAssise}} places assises, {{nbrPlaceDebout}} debout</p>
+            <img src="img/{{firstImage}}" />
+        </li>
+        {{/lieux}}`;
 
 let type = 0;
 let lieu = 0;
@@ -56,6 +73,36 @@ const loadStyles = () => {
             let result = template(data);
 
             document.querySelector("#filter-style").innerHTML = result;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+const loadSLieux = () => {
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/lieux`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.lieux.forEach(lieu => {
+                const imagesArray = JSON.parse(lieu.images);
+                lieu.firstImage = imagesArray[0];
+            });
+
+            let template = Handlebars.compile(lieuTemplate);
+            let result = template(data);
+
+            let template2 = Handlebars.compile(lieuDetailsTemplate);
+            let result2 = template2(data);
+
+
+
+            document.querySelector("#filter-lieu").innerHTML = result;
+            document.querySelector(".venue-list").innerHTML = result2;
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

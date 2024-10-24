@@ -7,6 +7,8 @@
     <title>NRV.net - Nancy Rock Vibration</title>
     <meta name="description" content="Billetterie officielle du festival Nancy Rock Vibration. Découvrez le programme des spectacles et achetez vos billets en ligne.">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -18,8 +20,17 @@
             <li><a href="#programme">Programme</a></li>
             <li><a href="#acheter-billets">Acheter des billets</a></li>
             <li><a href="#lieux">Lieux</a></li>
-            <li><a href="#compte">Mon compte</a></li>
+            <li><a id="auth-email" href="signin.html">Connexion</a></li>
+            <li style="display: none;" id="auth-signout">
+                <a onclick="signOut()" href="#">Deconnexion</a>
+            </li>
         </ul>
+        <div class="shopping-cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <div class="shopping-cart-count">1</div>
+            <div class="shopping-cart-content" style="display: none;">
+            </div>
+        </div>
     </nav>
 </header>
 
@@ -45,9 +56,6 @@
 
             <label for="filter-lieu">Filtrer par lieu :</label>
             <select onchange="changeLieu(this.value)" id="filter-lieu" name="filter-lieu">
-                <option value="all">Tous les lieux</option>
-                <option value="1">Théâtre de Nancy</option>
-                <option value="2">Zénith de Nancy</option>
             </select>
         </div>
 
@@ -66,26 +74,14 @@
         <p>Le festival se déroule dans plusieurs lieux emblématiques de Nancy. Cliquez sur chaque lieu pour plus de détails.</p>
 
         <ul class="venue-list">
-            <li>
-                <h3>Zénith de Nancy</h3>
-                <p>Adresse: Rue du Zénith, 54000 Nancy</p>
-                <p>Capacité: 5 000 places assises, 10 000 debout</p>
-            </li>
-            <li>
-                <h3>Magic Mirrors</h3>
-                <p>Adresse: Place Carnot, 54000 Nancy</p>
-                <p>Capacité: 500 places assises, 1 000 debout</p>
-            </li>
-            <!-- Autres lieux à ajouter -->
         </ul>
     </section>
 
     <section id="compte">
         <h2>Mon Compte</h2>
         <p>Accédez à votre profil pour gérer vos billets et vos réservations.</p>
-        <a href="signin.html" class="cta-button">Se Connecter</a>
+        <a href="signin.html" class="cta-button">Mon Compte</a>
     </section>
-
 </main>
 
 <footer>
@@ -100,5 +96,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
 
 </html>
