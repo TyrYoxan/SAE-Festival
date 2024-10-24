@@ -9,16 +9,16 @@ use festival\core\Dto\DtoBillet;
 tarif normal et tarif réduit (étudiants, demandeurs d’emploi, personnes en situation de
 handicap),*/
 
-class Billet extends Entity{
-    private string $id_soiree;
-    private string $id_utilisateur;
-    private string $categorie_tarif;
-    private string $quantite;
-    private string $date_achat;
+class Billet extends Entity
+{
+    private String $id_soiree;
+    private String $id_utilisateur;
+    private String $categorie_tarif;
+    private String $quantite;
+    private String $date_achat;
 
-    public function __construct( string $id_soiree, string $id_utilisateur, string $categorie_tarif, string $quantite, string $date_achat)
+    public function __construct(string $id_soiree, string $id_utilisateur, string $categorie_tarif, string $quantite, string $date_achat)
     {
-
         $this->id_soiree = $id_soiree;
         $this->id_utilisateur = $id_utilisateur;
         $this->categorie_tarif = $categorie_tarif;
