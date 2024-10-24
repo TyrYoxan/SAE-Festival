@@ -37,23 +37,17 @@
 
         <div class="filters">
             <label for="filter-date">Filtrer par date :</label>
-            <input type="date" id="filter-date" name="filter-date">
+            <input onchange="changeDate(this.value)" type="date" id="filter-date" name="filter-date">
 
             <label for="filter-style">Filtrer par style :</label>
-            <select id="filter-style" name="filter-style">
-                <option value="all">Tous les styles</option>
-                <option value="rock">Rock</option>
-                <option value="blues">Blues</option>
-                <option value="metal">Metal</option>
-                <option value="chanson">Chanson</option>
+            <select onchange="changeType(this.value)" id="filter-style" name="filter-style">
             </select>
 
             <label for="filter-lieu">Filtrer par lieu :</label>
-            <select id="filter-lieu" name="filter-lieu">
+            <select onchange="changeLieu(this.value)" id="filter-lieu" name="filter-lieu">
                 <option value="all">Tous les lieux</option>
-                <option value="zenith">Zénith de Nancy</option>
-                <option value="magic-mirrors">Magic Mirrors</option>
-                <option value="autre-lieu">Autre lieu</option>
+                <option value="1">Théâtre de Nancy</option>
+                <option value="2">Zénith de Nancy</option>
             </select>
         </div>
 
