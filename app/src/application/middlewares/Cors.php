@@ -10,19 +10,27 @@ use Slim\Psr7\Factory\ResponseFactory;
 class Cors
 {
     public function __invoke(Request $rq, RequestHandler $next): Response {
-        if (!$rq->hasHeader('Origin')) {
+        $origin = $rq->getHeader('Origin')[0] ?? '';
+
+        // Gestion des requêtes preflight (OPTIONS)
+        if ($rq->getMethod() === 'OPTIONS') {
             $responseFactory = new ResponseFactory();
-            $response = $responseFactory->createResponse(401);
-            $response->getBody()->write(json_encode(['error' => 'missing Origin Header (cors)']));
-            return $response->withHeader('Content-Type', 'application/json');
+            $response = $responseFactory->createResponse();
+            return $response
+                ->withHeader('Access-Control-Allow-Origin', $origin)
+                ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS')
+                ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+                ->withHeader('Access-Control-Allow-Credentials', 'true')
+                ->withHeader('Access-Control-Max-Age', '3600');
         }
+
+        // Traitement des autres requêtes
         $response = $next->handle($rq);
-        $response = $response
-            ->withHeader('Access-Control-Allow-Origin', $rq->getHeader('Origin'))
-            ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET' )
-            ->withHeader('Access-Control-Allow-Headers','Authorization' )
-            ->withHeader('Access-Control-Max-Age', 3600)
+
+        return $response
+            ->withHeader('Access-Control-Allow-Origin', $origin)
+            ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS')
+            ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
             ->withHeader('Access-Control-Allow-Credentials', 'true');
-        return $response;
     }
 }

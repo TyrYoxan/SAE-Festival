@@ -1,11 +1,11 @@
 <?php
 
 use DI\ContainerBuilder;
+use festival\application\utils\CorsUtility;
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use festival\application\middlewares\Cors;
-
 
 
 $builder = new ContainerBuilder();
@@ -18,6 +18,7 @@ $app = AppFactory::createFromContainer($c);
 
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
+//$app->add(CorsUtility::class);
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)
     ->getDefaultErrorHandler()
     ->forceContentType('application/json');

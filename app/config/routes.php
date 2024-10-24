@@ -13,7 +13,7 @@ use festival\application\middlewares\Cors;
 use festival\application\middlewares\JWTAuthMiddleware;
 
 return function (\Slim\App $app): \Slim\App {
-    //$app->add(Cors::class);
+    $app->add(new Cors());
 
     $app->get('/', HomeAction::class)->setName('home');
 
@@ -32,11 +32,15 @@ return function (\Slim\App $app): \Slim\App {
     // create user
     $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
 
+    // liste des billets
     $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
         //->add(new JWTAuthMiddleware());
 
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
+
+    // panier
+    $app->get('/panier', GetPAnierAction::class)->setName('panier');
 
     return $app;
 };
