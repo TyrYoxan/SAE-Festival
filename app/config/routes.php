@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use festival\application\action\DeleteBilletAction;
+use festival\application\action\DeleteItemAction;
 use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetnbPlacesVenduesAction;
@@ -72,7 +72,7 @@ return function (\Slim\App $app): \Slim\App {
     $app->post('/panier/{id_user}/payer', PostPayerPanierAction::class)->setName('payerPanier')
         ->add(JWTAuthMiddleware::class);
 
-    $app->delete('/panier/{id_user}/{item}', DeleteBilletAction::class)->setName('deletePanier')
+    $app->delete('/panier/{id_user}/{item}', DeleteItemAction::class)->setName('deletePanier')
         ->add(JWTAuthMiddleware::class);
 
     return $app;

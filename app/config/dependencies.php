@@ -1,5 +1,6 @@
 <?php
 
+use festival\application\action\DeleteItemAction;
 use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetnbPlacesVenduesAction;
@@ -187,5 +188,9 @@ return[
 
     PostPayerPanierAction::class => function (ContainerInterface $c) {
         return new PostPayerPanierAction($c->get(servicePanierInterface::class), $c->get(SoireeRepositoryInterface::class));
+    },
+
+    DeleteItemAction::class => function (ContainerInterface $c) {
+        return new DeleteItemAction($c->get(servicePanierInterface::class));
     },
 ];

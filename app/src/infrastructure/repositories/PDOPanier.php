@@ -138,4 +138,22 @@ class PDOPanier implements PanierRepositoryInterface{
             throw new \Exception($e->getMessage());
         }
     }
+
+    public function deleteItem(string $id, string $id_user): void{
+        try{
+            $stmt = $this->db->prepare('DELETE FROM Panier_Soiree 
+                                                WHERE id_soiree = :id 
+                                                AND id_panier IN (
+                                                    SELECT id_panier 
+                                                    FROM Panier 
+                                                    WHERE id_utilisateur = :idUser
+                                                );
+                                             ');
+            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':idUser', $id_user);
+            $stmt->execute();
+        }catch (\PDOException $e){
+            throw new \Exception($e->getMessage());
+        }
+    }
 }

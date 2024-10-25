@@ -62,4 +62,12 @@ class servicePanier implements servicePanierInterface{
            throw new \Exception($e->getMessage());
        }
     }
+
+    public function deleteItem(string $id, string $id_user):void{
+        try{
+            $this->panierRepository->deleteItem($id, $id_user);
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage());
+        }
+    }
 }
