@@ -2,18 +2,20 @@ window.addEventListener('load', function() {
     if(!isLoggedIn())
         return document.querySelector(".shopping-cart").style.display = "none";
 
-    const cartIcon = document.querySelector('.shopping-cart');
-    const cartContent = document.querySelector('.shopping-cart-content');
+    try {
+        const cartIcon = document.querySelector('.shopping-cart');
+        const cartContent = document.querySelector('.shopping-cart-content');
 
-    cartIcon.addEventListener('mouseenter', () => {
-        cartContent.style.display = 'flex';
-    });
+        cartIcon.addEventListener('mouseenter', () => {
+            cartContent.style.display = 'flex';
+        });
 
-    cartIcon.addEventListener('mouseleave', () => {
-        cartContent.style.display = 'none';
-    });
+        cartIcon.addEventListener('mouseleave', () => {
+            cartContent.style.display = 'none';
+        });
 
-    loadCart();
+        loadCart();
+    } catch {}
 });
 
 const cartTemplate = `
@@ -87,8 +89,8 @@ const addToCart = (soireeID) => {
     fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/ajouter`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + base64Credentials
+            'Authorization': `Bearer ${getAccessToken()}`,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             soireeID: soireeID,

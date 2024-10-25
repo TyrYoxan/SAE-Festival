@@ -16,7 +16,13 @@ const buyCartTemplate = `
     <h4>Total: {{tarifSum}}€</h4>`;
 
 const loadBuyCart = () => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId())
+    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId(), {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getAccessToken()}`,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -46,5 +52,33 @@ const loadBuyCart = () => {
 }
 
 const payCart = () => {
-    window.location.href = "tickets.html";
+
+    const expiryDate = document.querySelector("#expiry-date");
+    const cardNumber = document.querySelector("#card-number");
+    const cvv = document.querySelector("#cvv");
+
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/payer`, {
+        method: "POST",
+        headers: {
+            'Authorization': `Bearer ${getAccessToken()}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            expiryDate: expiryDate,
+            cardNumber: cardNumber,
+            cvv: cvv
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response;
+        })
+        .then(data => {
+            window.location.href = "tickets.html";
+        })
+        .catch(error => {
+            alert('There was a problem with the fetch operation:', error);
+        });
 }

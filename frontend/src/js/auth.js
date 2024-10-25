@@ -98,8 +98,10 @@ const signOut = () => {
 
 window.addEventListener('load', function() {
     if(isLoggedIn()) {
-        document.querySelector("#auth-email").innerHTML = getEmailFromToken();
-        document.querySelector("#auth-signout").style.display = "inline-block";
+        try {
+            document.querySelector("#auth-email").innerHTML = getEmailFromToken();
+            document.querySelector("#auth-signout").style.display = "inline-block";
+        } catch {}
         return;
     }
 });
