@@ -33,6 +33,8 @@ const loadBuyCart = () => {
         })
         .then(data => {
 
+            console.log(data)
+
             let tarifSum = 0;
 
             data.panier.soirees.forEach(s => {
@@ -57,9 +59,9 @@ const loadBuyCart = () => {
 
 const payCart = () => {
 
-    const expiryDate = document.querySelector("#expiry-date");
-    const cardNumber = document.querySelector("#card-number");
-    const cvv = document.querySelector("#cvv");
+    const expiryDate = document.querySelector("#expiry-date").value;
+    const cardNumber = document.querySelector("#card-number").value;
+    const cvv = document.querySelector("#cvv").value;
 
     fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/payer`, {
         method: "POST",

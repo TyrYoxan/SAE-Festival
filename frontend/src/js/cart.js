@@ -62,6 +62,7 @@ const loadCart = () => {
 
             if(sCount > 0)
                 document.querySelector(".shopping-cart-count").innerHTML = data.panier.soirees.length;
+
             else document.querySelector(".shopping-cart").style.display = "none";
 
             document.querySelector(".shopping-cart-content").innerHTML = result;

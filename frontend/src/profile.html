@@ -7,6 +7,7 @@
   <title>NRV.net - Nancy Rock Vibration</title>
   <meta name="description" content="Billetterie officielle du festival Nancy Rock Vibration. Découvrez le programme des spectacles et achetez vos billets en ligne.">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -15,12 +16,18 @@
   <nav>
     <a href="index.html" class="logo">NRV.net</a>
     <ul>
-      <li><a href="index.html">Acceuil</a></li>
+      <li><a href="index.html">Accueil</a></li>
       <li><a id="auth-email" href="signin.html">Connexion</a></li>
       <li style="display: none;" id="auth-signout">
         <a onclick="signOut()" href="#">Deconnexion</a>
       </li>
     </ul>
+    <div class="shopping-cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <div class="shopping-cart-count">1</div>
+      <div class="shopping-cart-content" style="display: none;">
+      </div>
+    </div>
   </nav>
 </header>
 
@@ -43,5 +50,5 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/auth.js"></script>
-
+<script src="js/cart.js"></script>
 </html>
