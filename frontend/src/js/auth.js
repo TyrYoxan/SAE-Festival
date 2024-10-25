@@ -42,13 +42,19 @@ const signUp = () => {
     let password2 = document.querySelector("#password2").value;
     let name = document.querySelector("#name").value;
 
-    return document.querySelector("#auth-error").innerHTML = "";
+    document.querySelector("#auth-error").innerHTML = "";
 
     if(password !== password2)
         return document.querySelector("#auth-error").innerHTML = "Les mots de passe ne sont pas identiques.";
 
+    const base64Credentials = btoa(`${email}:${password}:${name}`);
+
     fetch('http://docketu.iutnc.univ-lorraine.fr:22000/users/signup', {
         method: 'POST',
+        headers: {
+            'Authorization': `Basic ${base64Credentials}`,
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
             email: email,
             password: password,

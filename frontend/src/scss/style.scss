@@ -1,0 +1,323 @@
+// Variables
+$primary-color: #ff6b6b;
+$secondary-color: #333;
+$background-color: #f4f4f4;
+$text-color: #333;
+$link-color: #ff6b6b;
+$white: #fff;
+
+// Mixin
+@mixin transition($property, $duration) {
+  transition: $property $duration ease;
+}
+
+@mixin box-shadow($color) {
+  box-shadow: 0 4px 8px rgba($color, 0.1);
+}
+
+// Base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: $background-color;
+  color: $text-color;
+  padding: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+
+// Header and navigation
+header {
+  background-color: $secondary-color;
+  padding: 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  .logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: $white;
+  }
+
+  nav ul {
+    list-style: none;
+    margin-top: 10px;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      margin: 0 15px;
+
+      a {
+        color: $white;
+        font-size: 1.1em;
+      }
+    }
+  }
+}
+
+// Section Introduction
+#intro {
+  text-align: center;
+  padding: 100px 0;
+  background-image: url('../img/main.jpg');
+  background-size: cover;
+  background-position: center;
+  color: $white;
+
+  h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: 5px;
+    font-size: 1.2em;
+    @include transition(background-color, 0.3s);
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Section Programme
+#programme {
+  padding: 60px 20px;
+  background-color: $white;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+
+  .filters {
+    margin: 30px 0;
+    label {
+      font-size: 1.1em;
+      margin-right: 10px;
+    }
+
+    select, input {
+      padding: 5px;
+      font-size: 1em;
+      margin-right: 20px;
+    }
+  }
+
+  .show-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .show-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    text-align: left;
+    @include box-shadow(0, 0, 0);
+
+    img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    div {
+      padding: 20px;
+
+      h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+// Section Acheter des billets
+#acheter-billets {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: $primary-color;
+  color: $white;
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+}
+
+// Section Lieux
+#lieux {
+  padding: 60px 20px;
+  background-color: $white;
+  text-align: center;
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+
+  .venue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+
+    li {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      @include box-shadow(0, 0, 0);
+
+      h3 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+      }
+
+      img {
+        height: 120px;
+        margin-top: 20px;
+        border-radius: 12px;
+      }
+    }
+  }
+}
+
+// Section Mon Compte
+#compte {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: $background-color;
+
+  h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+  }
+
+  p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+}
+
+// Section des billets
+#mes-billets {
+  padding: 60px 20px;
+  background-color: #f9f9f9;
+
+  .billet {
+    background-color: $white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    @include transition(transform, 0.3s);
+    @include box-shadow(0, 0, 0);
+
+    &:hover {
+      transform: translateY(-5px);
+      @include box-shadow(0, 0, 0.2);
+    }
+
+    h2 {
+      color: $primary-color;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .no-tickets {
+    padding: 2rem;
+    background-color: #f0f0f0;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #95a5a6;
+    border-radius: 8px;
+    margin-top: 2rem;
+  }
+}
+
+// Footer
+footer {
+  background-color: $secondary-color;
+  color: $white;
+  text-align: center;
+  padding: 20px;
+
+  ul {
+    list-style: none;
+    padding-top: 10px;
+
+    li {
+      display: inline-block;
+      margin: 0 10px;
+
+      a {
+        color: $white;
+        font-size: 1.1em;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Responsiveness
+@media (max-width: 768px) {
+  nav ul {
+    display: block;
+    text-align: center;
+
+    li {
+      margin: 10px 0;
+    }
+  }
+
+  .show-list, #filters-form, .spectacles, .buy-container {
+    flex-direction: column;
+  }
+}
