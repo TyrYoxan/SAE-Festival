@@ -30,8 +30,13 @@ const cartTemplate = `
     <button onclick="validateCart()">Valider le Panier ({{tarifSum}}€)</button>`;
 
 const loadCart = () => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId())
-        .then(response => {
+    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId(),{
+        method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${getAccessToken()}`,
+                'Content-Type': 'application/json'
+            }
+    }).then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

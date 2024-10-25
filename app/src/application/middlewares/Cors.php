@@ -10,7 +10,7 @@ use Slim\Psr7\Factory\ResponseFactory;
 class Cors
 {
     public function __invoke(Request $rq, RequestHandler $next): Response {
-        $origin = $rq->getHeader('Origin')[0] ?? '';
+        $origin = $rq->hasHeader('Origin') ? $rq->getHeader('Origin')[0] : '*';
 
         // Gestion des requêtes preflight (OPTIONS)
         if ($rq->getMethod() === 'OPTIONS') {

@@ -37,28 +37,31 @@ return function (\Slim\App $app): \Slim\App {
     // create user
     $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
 
-    // liste des billets
-    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets')
-        ->add(new JWTAuthMiddleware());
-
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
+    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues');
+
+    $app->add(new JWTAuthMiddleware());
+
+    // liste des billets
+    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
+
     // panier
     $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier');
-        //->add(new JWTAuthMiddleware());
+
 
     // ajout d'un billet au panier
     $app->post('/panier/{id_user}/ajouter', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
-        //->add(new JWTAuthMiddleware());
+
 
     $app->post('/panier/{id_user}/valider', PostValidatePanierAction::class)->setName('validerPanier');
-        //->add(new JWTAuthMiddleware());
+
 
     $app->post('/panier/{id_user}/payer', PostPayerPanierAction::class)->setName('payerPanier');
-        //->add(new JWTAuthMiddleware());
 
-    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues');
+
+
 
     return $app;
 };

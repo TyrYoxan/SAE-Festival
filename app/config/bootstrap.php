@@ -17,7 +17,7 @@ $app = AppFactory::createFromContainer($c);
 
 $app->addBodyParsingMiddleware();
 $app->addRoutingMiddleware();
-//$app->add(CorsUtility::class);
+//$app->add(new Cors());
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)
     ->getDefaultErrorHandler()
     ->forceContentType('application/json');
