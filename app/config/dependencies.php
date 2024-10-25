@@ -12,6 +12,10 @@ use festival\application\action\PostCreateUserAction;
 use festival\application\action\PostPayerPanierAction;
 use festival\application\action\PostSigninAction;
 use festival\application\action\PostValidatePanierAction;
+use festival\application\middlewares\AdminMiddleware;
+use festival\application\middlewares\Cors;
+use festival\application\middlewares\JWTAuthMiddleware;
+use festival\application\providers\auth\JWTAuthnProvider;
 use festival\core\ReposotiryInterfaces\BilletRepositoryInterface;
 use festival\core\ReposotiryInterfaces\LieuRepositoryInterface;
 use festival\core\ReposotiryInterfaces\PanierRepositoryInterface;
@@ -39,59 +43,50 @@ use Psr\Container\ContainerInterface;
 
 
 return[
+    Cors::class => function (ContainerInterface $c) {
+        return new Cors();
+    },
+
+    JWTAuthMiddleware::class => function (ContainerInterface $c) {
+            return new JWTAuthMiddleware();
+    },
+
+    AdminMiddleware::class => function (ContainerInterface $c) {
+        return new AdminMiddleware();
+    },
+
     // PDO
-    'spectacle.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
+    'pdo' => function (ContainerInterface $c) {
+        return new PDO(
             'mysql:host=festival.db;dbname=festival;charset=utf8',
             'root',
             'root',
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOSpectacle($pdo);
+    },
+
+    'spectacle.pdo' => function (ContainerInterface $c) {
+        return new PDOSpectacle($c->get('pdo'));
     },
 
     'soiree.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOSoiree($pdo);
+
+        return new PDOSoiree($c->get('pdo'));
     },
 
     'theme.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOTheme($pdo);
+        return new PDOTheme($c->get('pdo'));
     },
 
     'lieu.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOLieu($pdo);
+        return new PDOLieu($c->get('pdo'));
     },
 
     'user.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOUtilisateur($pdo);
+        return new PDOUtilisateur($c->get('pdo'));
     },
 
     'panier.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOPanier($pdo);
+        return new PDOPanier($c->get('pdo'));
     },
 
     'billet.pdo' => function (ContainerInterface $c) {
@@ -139,6 +134,10 @@ return[
 
     servicePanierInterface::class => function (ContainerInterface $c) {
         return new servicePanier($c->get(PanierRepositoryInterface::class), $c->get(BilletRepositoryInterface::class));
+    },
+
+    JWTAuthnProvider::class => function (ContainerInterface $c) {
+        return new JWTAuthnProvider($c->get(UtilisateurRepositoryInterface::class));
     },
 
     // Actions

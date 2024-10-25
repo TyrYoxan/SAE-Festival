@@ -12,5 +12,5 @@ interface AuthnProviderInterface{
     public function signin(DtoCredentials $credentials): DtoAuth;
     public function refresh(Token $token): DtoAuth;
 
-    public function getSignedInUser(Token $token): DtoAuth;
+    static function getSignedInUser(string $token): DtoAuth;
 }

@@ -29,7 +29,9 @@ class PDOPanier implements PanierRepositoryInterface{
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
+            if(empty($rows)) {
+                return [];
+            }
             $paniers = [];
             $r = [];
             foreach ($rows as $row){
@@ -57,6 +59,11 @@ class PDOPanier implements PanierRepositoryInterface{
     public function ajouterBilletAuPanier(string $id_user, int $id_soiree, string $quantite, string $tarif): void
     {
         try {
+
+            $stmt = $this->db->prepare('SELECT id_panier FROM Panier WHERE id_utilisateur = :id_user');
+            $stmt->bindValue(':id_user', $id_user);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $id_panier = UUID::uuid4()->toString();
             $stmt2 = $this->db->prepare('INSERT INTO Panier (id_panier, id_utilisateur) VALUES (:id_panier, :id_user)');
             $stmt2->bindValue(':id_panier', $id_panier);
@@ -114,6 +121,19 @@ class PDOPanier implements PanierRepositoryInterface{
 
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $row;
+        }catch (\PDOException $e){
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function deletePanier(string $id):void{
+        try{
+            $stmt = $this->db->prepare('DELETE FROM Panier_Soiree WHERE id_panier IN (SELECT id_panier FROM Panier WHERE id_utilisateur = :id)');
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+            $stmt = $this->db->prepare('DELETE FROM Panier WHERE id_utilisateur = :id');
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
         }catch (\PDOException $e){
             throw new \Exception($e->getMessage());
         }

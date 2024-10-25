@@ -24,18 +24,12 @@ class GetAddBilletPanierAction extends AbstractAction{
                 return JsonRenderer::render($rs, 401, 'Authorization header missing');
             }
 
-            $authData = str_replace('Basic ', '', $data);
-            $decodedData = base64_decode($authData);
-            if ($decodedData === false) {
-                return JsonRenderer::render($rs, 400, 'Invalid Base64 encoding');
-            }
-
-            // Séparation des informations
-            list($id_soiree, $quantite, $tarif) = explode(':', $decodedData);
-
+            $id_soiree = $rq->getParsedBody()['soireeID'] ?? null;
+            $quantite = $rq->getParsedBody()['qte'] ?? null;
+            $tarif = $rq->getParsedBody()['reduit'] ?? null;
 
             // Appel du service pour ajouter le billet au panier
-            $this->servicePanier->ajouterBilletAuPanier($args['id_user'], (int) $id_soiree, (int) $quantite, (float) $tarif);
+            $this->servicePanier->ajouterBilletAuPanier($args['id_user'], (int) $id_soiree, (int) $quantite, $tarif);
 
             // Réponse réussie
             $rs = $rs->withHeader('Content-Type', 'application/json');

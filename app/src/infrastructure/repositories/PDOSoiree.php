@@ -69,7 +69,7 @@ class PDOSoiree implements SoireeRepositoryInterface{
         return $row['places_vendues'];
     }
 
-    function getPlacesDisponibles(string $soireeId) : int{
+    public function getPlacesDisponibles(string $soireeId) : int{
         $stmt = $this->pdo->prepare("SELECT SUM(places_assises + places_debout) as places_disponibles 
                                             FROM Lieu 
                                             WHERE id_lieu IN (SELECT id_lieu 

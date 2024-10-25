@@ -24,7 +24,7 @@ class PostPayerPanierAction extends AbstractAction{
         $id = $args['id_user'];
         try {
             $data = $rq->getParsedBody();
-            if($this->serviceSoiree->verfierPlace($data['id_soiree'])){
+            if($this->serviceSoiree->verfierPlace($data['soirees'])){
                 $this->servicePanier->payerPanier($id);
                 $rs = $rs->withHeader('Content-type', 'application/json');
                 return JsonRenderer::render($rs, 200);

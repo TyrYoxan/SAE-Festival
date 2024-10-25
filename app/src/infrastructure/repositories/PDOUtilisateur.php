@@ -8,6 +8,7 @@ use festival\core\Dto\DtoAuth;
 use festival\core\Dto\DtoCredentials;
 use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use PDO;
+use Ramsey\Uuid\Uuid;
 
 class PDOUtilisateur implements UtilisateurRepositoryInterface{
     private PDO $db;
@@ -19,7 +20,7 @@ class PDOUtilisateur implements UtilisateurRepositoryInterface{
     public function creatUser(Utilisateur $utilisateur): void{
         try {
             $stmt = $this->db->prepare('INSERT INTO Utilisateur (nom_utilisateur, email, mot_de_passe, uuid) VALUES (:nom, :email, :mot_de_passe, :uuid)');
-            $stmt->bindValue(':uuid', uniqid());
+            $stmt->bindValue(':uuid', UUID::uuid4()->toString());
             $stmt->bindValue(':nom', $utilisateur->getNom());
             $stmt->bindValue(':email', $utilisateur->getEmail());
             $stmt->bindValue(':mot_de_passe', $utilisateur->getPassword());

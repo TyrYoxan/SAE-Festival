@@ -20,7 +20,8 @@ class GetnbPlacesVenduesAction extends AbstractAction{
         $placesVendues = $this->serviceSoiree->getPlacesVendues($soireeId);
         $data = [
             'type' => 'ressource',
-            'placesVendues' => $placesVendues,
+            'placesVendues' => $placesVendues[0],
+            'placesDisponibles' => $placesVendues[1],
         ];
         $rs = $rs->withHeader('Content-type', 'application/json');
         return JsonRenderer::render($rs, 200, $data);

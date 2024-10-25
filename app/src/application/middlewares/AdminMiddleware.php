@@ -2,21 +2,22 @@
 
 namespace festival\application\middlewares;
 
+use festival\application\providers\auth\JWTAuthnProvider;
+use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
-use Firebase\JWT\BeforeValidException;
-use PhpParser\Token;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use festival\application\providers\auth\JWTAuthnProvider;
 use Slim\Psr7\Response as SlimResponse;
 
-class JWTAuthMiddleware implements MiddlewareInterface
-{
-    public function process(Request $request, RequestHandlerInterface $handler): Response
-    {
+class AdminMiddleware implements MiddlewareInterface {
+
+
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface{
+
         try {
             $header = $request->getHeader('Authorization')[0] ?? null;
 
@@ -27,6 +28,12 @@ class JWTAuthMiddleware implements MiddlewareInterface
             $tokenString = sscanf($header, "Bearer %s")[0];
             // Valider le token et obtenir l'utilisateur
             $auth = JWTAuthnProvider::getSignedInUser($tokenString);
+
+            if (!$auth->isAdmin()) {
+                $rs = new SlimResponse();
+                $rs->getBody()->write(json_encode(['error' => 'Forbidden']));
+                return $rs->withStatus(403)->withHeader('Content-Type', 'application/json');
+            }
 
         } catch (ExpiredException $e) {
             return $this->unauthorizedResponse("Token expired");
@@ -53,4 +60,5 @@ class JWTAuthMiddleware implements MiddlewareInterface
         $rs->getBody()->write(json_encode(['error' => $message]));
         return $rs->withStatus(401)->withHeader('Content-Type', 'application/json');
     }
+
 }

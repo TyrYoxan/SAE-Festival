@@ -56,6 +56,7 @@ class servicePanier implements servicePanierInterface{
           foreach ($id_panier as $s){
               $this->billetRepository->creerBillet($s['id_soiree'], $s['quantite'], $s['categorie_tarif'], $id_user);
           }
+          $this->panierRepository->deletePanier($id_user);
 
        }catch(\Exception $e){
            throw new \Exception($e->getMessage());

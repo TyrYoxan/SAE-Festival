@@ -5,7 +5,7 @@ namespace festival\application\providers\auth;
 use festival\core\Dto\DtoCredentials;
 use festival\core\ReposotiryInterfaces\UtilisateurRepositoryInterface;
 use PhpParser\Token;
-use festival\core\dto\DtoAuth;
+use festival\core\Dto\DtoAuth;
 use festival\core\services\auth\serviceAuthn;
 
 class JWTAuthnProvider implements AuthnProviderInterface{
@@ -54,8 +54,9 @@ class JWTAuthnProvider implements AuthnProviderInterface{
         return $auth->addToken($token, $rtoken);
     }
 
-    public function getSignedInUser(Token $token): DtoAuth{
-        $payload = JWTManager::class->decodeToken($token);
-        return new DtoAuth($payload['data']['name'], $payload['data']['email'], $payload['sub'], $payload['data']['role']);
+    static function getSignedInUser(string $token): DtoAuth{
+        $jwtManager = new JWTManager(); // ou la classe appropriée
+        $payload = $jwtManager->decodeToken($token);
+        return new DtoAuth($payload['data']->name, $payload['data']->email, $payload['sub'], $payload['data']->role);
     }
 }

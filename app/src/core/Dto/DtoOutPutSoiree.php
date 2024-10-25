@@ -34,6 +34,7 @@ class DtoOutPutSoiree extends Dto implements \JsonSerializable
     public function jsonSerialize() : array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'theme' => $this->theme,
             'date' => $this->date,

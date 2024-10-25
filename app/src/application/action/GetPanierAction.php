@@ -20,7 +20,7 @@ class GetPanierAction extends AbstractAction{
         $panier = $this->servicePanier->getPanier($args['id_user']);
         $data = [
             'type' => 'collection',
-            'panier' => $panier[0],
+            'panier' => $panier[0] ?? [],
         ];
         $rs = $rs->withHeader('Content-type', 'application/json');
         return JsonRenderer::render($rs, 200, $data);

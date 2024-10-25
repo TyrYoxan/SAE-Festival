@@ -23,7 +23,7 @@ class PostCreateUserAction extends AbstractAction{
             }
             $pwd = password_hash($data['password'], PASSWORD_BCRYPT);
 
-            $this->serviceUtilisateur->createUser(strip_tags($data['nom']), $data['email'], $pwd);
+            $this->serviceUtilisateur->createUser(strip_tags($data['name']), $data['email'], $pwd);
             return JsonRenderer::render($rs, 201, ['message' => 'Utilisateur cree avec succees']);
         }catch (\Exception $th) {
             return JsonRenderer::render($rs, 500, $th->getMessage());

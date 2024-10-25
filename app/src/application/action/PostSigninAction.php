@@ -30,7 +30,7 @@ class PostSigninAction extends AbstractAction{
 
         if (!isset($username) || !isset($password)) {
             $rs->getBody()->write('Email and password are required.');
-            return $rs->withStatus(400);
+            return $rs->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
         }
 
         $credentials = new DtoCredentials($username, $password);
@@ -44,11 +44,12 @@ class PostSigninAction extends AbstractAction{
 
             $rs->getBody()->write(json_encode($responseBody));
             return $rs->withStatus(201)
+                ->withHeader('Access-Control-Allow-Origin', '*')
                 ->withHeader('Content-Type', 'application/json');
 
         } catch (\Exception $e) {
             $rs->getBody()->write($e->getMessage());
-            return $rs->withStatus(401);
+            return $rs->withStatus(401)->withHeader('Access-Control-Allow-Origin', '*');
         }
     }
 }

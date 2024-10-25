@@ -10,4 +10,6 @@ interface PanierRepositoryInterface{
     public function validatePanier(string $id): void;
 
     public function payerPanier(string $id): array;
+
+    public function deletePanier(string $id): void;
 }

@@ -49,4 +49,8 @@ class DtoAuth extends Dto{
     public function getRtoken(): ?string {
         return $this->rtoken;
     }
+
+    public function isAdmin(): bool{
+        return $this->role === '100';
+    }
 }

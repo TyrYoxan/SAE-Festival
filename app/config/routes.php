@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use festival\application\action\DeleteBilletAction;
 use festival\application\action\GetAddBilletPanierAction;
 use festival\application\action\GetLieuxAction;
 use festival\application\action\GetnbPlacesVenduesAction;
@@ -14,54 +15,65 @@ use festival\application\action\PostCreateUserAction;
 use festival\application\action\PostPayerPanierAction;
 use festival\application\action\PostSigninAction;
 use festival\application\action\PostValidatePanierAction;
+use festival\application\middlewares\AdminMiddleware;
 use festival\application\middlewares\Cors;
 use festival\application\middlewares\JWTAuthMiddleware;
 
 return function (\Slim\App $app): \Slim\App {
-    $app->add(new Cors());
+    $app->options('/{routes:.+}', function ($request, $response, $args) {
+        return $response;
+    });
 
-    $app->get('/', HomeAction::class)->setName('home');
+    $app->get('/', HomeAction::class)->setName('home')
+       ;
 
     // liste spectacles
-    $app->get('/spectacles', GetSpectaclesAction::class)->setName('spectacles');
+    $app->get('/spectacles', GetSpectaclesAction::class)->setName('spectacles')
+       ;
 
     //liste des themes
-    $app->get('/soirees/themes', GetThemesAction::class)->setName('themes');
+    $app->get('/soirees/themes', GetThemesAction::class)->setName('themes')
+        ;
 
     // details d'un spectacle
-    $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle');
+    $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle')
+        ;
 
     // liste des lieux
-    $app->get('/lieux', GetLieuxAction::class)->setName('lieux');
+    $app->get('/lieux', GetLieuxAction::class)->setName('lieux')
+        ;
 
     // create user
-    $app->post('/users/create', PostCreateUserAction::class)->setName('createUser');
+    $app->post('/users/signup', PostCreateUserAction::class)->setName('createUser')
+        ;
 
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
-    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues');
-
-    $app->add(new JWTAuthMiddleware());
+    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues')
+        ->add(AdminMiddleware::class)
+        ->add(JWTAuthMiddleware::class);
 
     // liste des billets
-    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets');
+    $app->get('/users/{id}/billets', GetTicketByUserAction::class)->setName('billets')
+        ->add(JWTAuthMiddleware::class);
 
     // panier
-    $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier');
-
+    $app->get('/panier/{id_user}', GetPanierAction::class)->setName('panier')
+        ->add(JWTAuthMiddleware::class);
 
     // ajout d'un billet au panier
-    $app->post('/panier/{id_user}/ajouter', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier');
+    $app->post('/panier/{id_user}/ajouter', GetAddBilletPanierAction::class)->setName('ajouterBilletAuPanier')
+        ->add(JWTAuthMiddleware::class);
 
+    $app->post('/panier/{id_user}/valider', PostValidatePanierAction::class)->setName('validerPanier')
+        ->add(JWTAuthMiddleware::class);
 
-    $app->post('/panier/{id_user}/valider', PostValidatePanierAction::class)->setName('validerPanier');
+    $app->post('/panier/{id_user}/payer', PostPayerPanierAction::class)->setName('payerPanier')
+        ->add(JWTAuthMiddleware::class);
 
-
-    $app->post('/panier/{id_user}/payer', PostPayerPanierAction::class)->setName('payerPanier');
-
-
-
+    $app->delete('/panier/{id_user}/{item}', DeleteBilletAction::class)->setName('deletePanier')
+        ->add(JWTAuthMiddleware::class);
 
     return $app;
 };

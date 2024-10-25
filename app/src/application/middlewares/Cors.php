@@ -17,7 +17,7 @@ class Cors
             $responseFactory = new ResponseFactory();
             $response = $responseFactory->createResponse();
             return $response
-                ->withHeader('Access-Control-Allow-Origin', $origin)
+                ->withHeader('Access-Control-Allow-Origin', '*')
                 ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS')
                 ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
                 ->withHeader('Access-Control-Allow-Credentials', 'true')
@@ -28,7 +28,7 @@ class Cors
         $response = $next->handle($rq);
 
         return $response
-            ->withHeader('Access-Control-Allow-Origin', $origin)
+            ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Methods', 'POST, PUT, GET, DELETE, OPTIONS')
             ->withHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
             ->withHeader('Access-Control-Allow-Credentials', 'true');

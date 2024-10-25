@@ -16,6 +16,7 @@ $app = AppFactory::createFromContainer($c);
 
 
 $app->addBodyParsingMiddleware();
+$app->add(Cors::class);
 $app->addRoutingMiddleware();
 //$app->add(new Cors());
 $app->addErrorMiddleware($c->get('displayErrorDetails'), false, false)

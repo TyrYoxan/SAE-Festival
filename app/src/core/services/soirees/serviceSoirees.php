@@ -30,8 +30,11 @@ class serviceSoirees implements serviceSoireeInterface{
         return $soirees;
     }
 
-    public function getPlacesVendues(string $soireeId): int {
-        return $this->soireeRepository->getPlacesVendues($soireeId);
+    public function getPlacesVendues(string $soireeId): array {
+        $place = [];
+        $place [] = $this->soireeRepository->getPlacesVendues($soireeId);
+        $place [] = $this->soireeRepository->getPlacesDisponibles($soireeId);
+        return $place;
     }
 
     public function verfierPlace(array $id_soiree)
