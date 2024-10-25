@@ -86,7 +86,7 @@ const getUserId = () => {
 }
 
 const getAccessToken = () => {
-    return localStorage.removeItem("atoken");
+    return localStorage.getItem("atoken");
 }
 
 const signOut = () => {

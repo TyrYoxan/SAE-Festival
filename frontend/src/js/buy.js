@@ -2,6 +2,8 @@ window.addEventListener('load', function() {
     loadBuyCart();
 });
 
+let soireesIDs = [];
+
 const buyCartTemplate = `
     <p>Mon panier</p>
     <div id="shopping-cart-items">
@@ -36,6 +38,8 @@ const loadBuyCart = () => {
             data.panier.soirees.forEach(s => {
                 tarifSum += parseInt(s.tarif) * s.quantite;
                 s.tarif *= s.quantite;
+
+                soireesIDs.push(s.id);
             })
 
             data.panier.tarifSum = tarifSum;
@@ -66,7 +70,8 @@ const payCart = () => {
         body: JSON.stringify({
             expiryDate: expiryDate,
             cardNumber: cardNumber,
-            cvv: cvv
+            cvv: cvv,
+            soirees: soireesIDs
         })
     })
         .then(response => {
