@@ -6,16 +6,43 @@ $text-color: #333;
 $link-color: #ff6b6b;
 $white: #fff;
 
-// Mixin
 @mixin transition($property, $duration) {
   transition: $property $duration ease;
 }
 
-@mixin box-shadow($color) {
-  box-shadow: 0 4px 8px rgba($color, 0.1);
+@mixin box-shadow($x-offset, $y-offset, $color) {
+  box-shadow: $x-offset $y-offset $color;
 }
 
-// Base styles
+@mixin progress-bar($bg-color: #95a5a6, $progress-color: #ff6b6b, $width: 500px, $height: 25px) {
+  width: $width;
+  height: $height;
+  border-radius: 10px;
+  position: relative;
+  background: $bg-color;
+
+  .progress {
+    background: $progress-color;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 10px 0 0 10px;
+  }
+
+  .progress-text {
+    position: absolute;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -35,7 +62,6 @@ a {
   color: $link-color;
 }
 
-// Header and navigation
 header {
   background-color: $secondary-color;
   padding: 20px;
@@ -67,7 +93,6 @@ header {
   }
 }
 
-// Section Introduction
 #intro {
   text-align: center;
   padding: 100px 0;
@@ -102,7 +127,6 @@ header {
   }
 }
 
-// Section Programme
 #programme {
   padding: 60px 20px;
   background-color: $white;
@@ -164,7 +188,6 @@ header {
   }
 }
 
-// Section Acheter des billets
 #acheter-billets {
   padding: 60px 20px;
   text-align: center;
@@ -182,7 +205,6 @@ header {
   }
 }
 
-// Section Lieux
 #lieux {
   padding: 60px 20px;
   background-color: $white;
@@ -220,7 +242,6 @@ header {
   }
 }
 
-// Section Mon Compte
 #compte {
   padding: 60px 20px;
   text-align: center;
@@ -237,7 +258,6 @@ header {
   }
 }
 
-// Section des billets
 #mes-billets {
   padding: 60px 20px;
   background-color: #f9f9f9;
@@ -279,7 +299,6 @@ header {
   }
 }
 
-// Footer
 footer {
   background-color: $secondary-color;
   color: $white;
@@ -306,7 +325,10 @@ footer {
   }
 }
 
-// Responsiveness
+.progress-bg {
+  @include progress-bar();
+}
+
 @media (max-width: 768px) {
   nav ul {
     display: block;
@@ -321,3 +343,4 @@ footer {
     flex-direction: column;
   }
 }
+

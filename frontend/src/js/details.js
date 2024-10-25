@@ -2,6 +2,10 @@ window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     const soireeId = params.get('soiree');
     loadSoiree(soireeId);
+
+    if(isLoggedIn() && getPayLoad().data.role == 100) {
+        showPlacesRemaining(soireeId);
+    }
 }
 
 const soireeTemplate = `    
@@ -68,6 +72,46 @@ const loadSoiree = (soireeId) => {
             let result = template(soireeData);
 
             document.querySelector("#details-soiree").innerHTML = result;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+const showPlacesRemaining = (soireeId) => {
+    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/soirees/nbPlacesVendues/' + soireeId, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${getAccessToken()}`,
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            console.log(data)
+
+            let vendues = 30;
+            let dispo = data.placesDisponibles;
+
+            let percentage = (dispo / (dispo + vendues)) * 100;
+
+            let progressBarElement = `
+                <div class="progress-bg">
+                    <div class="progress" style="width: ${percentage}%">
+                        
+                    </div>
+                    <div class="progress-text">
+                        ${Math.round(percentage)}% (${dispo})
+                    </div>
+                </div>`;
+
+            document.querySelector("#details-soiree").innerHTML = progressBarElement + document.querySelector("#details-soiree").innerHTML;
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

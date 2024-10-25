@@ -2,6 +2,9 @@ window.addEventListener('load', function() {
     loadSpectacles();
     loadStyles();
     loadSLieux();
+
+    document.querySelector("#prevBtn").addEventListener("click", prevPage);
+    document.querySelector("#nextBtn").addEventListener("click", nextPage);
 });
 
 const spectacleTemplate = `  
@@ -109,6 +112,10 @@ const loadSLieux = () => {
         });
 }
 
+let currentPage = 1;
+const spectaclesPerPage = 8;
+let allSpectacles = [];
+
 const loadSpectacles = () => {
     fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/spectacles?type=${type}&lieu=${lieu}&date=${date}`)
         .then(response => {
@@ -123,12 +130,41 @@ const loadSpectacles = () => {
                 spectacle.firstImage = JSON.parse(spectacle.images)[0];
             });
 
-            let template = Handlebars.compile(spectacleTemplate);
-            let result = template(data);
-
-            document.querySelector(".show-list").innerHTML = result;
+            allSpectacles = data.spectacles;
+            displayPage(currentPage);
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
-}
+};
+
+const displayPage = (page) => {
+    const startIndex = (page - 1) * spectaclesPerPage;
+    const endIndex = startIndex + spectaclesPerPage;
+
+    const pageSpectacles = { spectacles: allSpectacles.slice(startIndex, endIndex) };
+
+    let template = Handlebars.compile(spectacleTemplate);
+    let result = template(pageSpectacles);
+
+    document.querySelector(".show-list").innerHTML = result;
+    updatePaginationControls();
+};
+
+const updatePaginationControls = () => {
+    const totalPages = Math.ceil(allSpectacles.length / spectaclesPerPage);
+
+    document.querySelector("#prevBtn").disabled = currentPage === 1;
+
+    document.querySelector("#nextBtn").disabled = currentPage === totalPages;
+};
+
+const nextPage = () => {
+    currentPage++;
+    displayPage(currentPage);
+};
+
+const prevPage = () => {
+    currentPage--;
+    displayPage(currentPage);
+};

@@ -41,7 +41,7 @@
 
       <div class="payment-info">
         <h2>Informations de Paiement</h2>
-        <form id="payment-form">
+        <div id="payment-form">
           <div class="form-group">
             <label for="card-number">Numéro de Carte</label>
             <input type="text" id="card-number" placeholder="**** **** **** ****" required>
@@ -54,8 +54,8 @@
             <label for="cvv">CVV</label>
             <input type="text" id="cvv" placeholder="***" required>
           </div>
-          <button onclick="payCart()">Payer</button>
-        </form>
+          <button class="btn" onclick="payCart()">Payer</button>
+        </div>
       </div>
     </div>
   </section>

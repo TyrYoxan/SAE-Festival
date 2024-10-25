@@ -12,7 +12,7 @@ const buyCartTemplate = `
         <h4>{{name}}</h4>
         <p>{{date}} {{hour}}</p>
         <small>{{lieu}} x{{quantite}} - {{tarif}}€</small>
-        <i class="fa-solid fa-trash"></i>
+        <i onclick="deleteItemFromCart({{id}})" class="fa-solid fa-trash"></i>
         {{/soirees}}
     </div>
     <h4>Total: {{tarifSum}}€</h4>`;

@@ -46,7 +46,8 @@ const loadCart = () => {
         })
         .then(data => {
 
-            console.log(data)
+            if(data.panier.length == 0)
+                return document.querySelector(".shopping-cart").style.display = "none";
 
             let tarifSum = 0;
 
@@ -61,6 +62,8 @@ const loadCart = () => {
             let result = template(data.panier);
 
             let sCount = data.panier.soirees.length;
+
+            console.log(sCount)
 
             if(sCount > 0)
                 document.querySelector(".shopping-cart-count").innerHTML = sCount + "";
@@ -124,6 +127,7 @@ const validateCart = () => {
     fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/valider`, {
         method: "POST",
         headers: {
+            'Authorization': `Bearer ${getAccessToken()}`,
             'Content-Type': 'application/json'
         }
     })
@@ -149,6 +153,7 @@ const deleteItemFromCart = (itemID, el) => {
     fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/${itemID}`, {
         method: "DELETE",
         headers: {
+            'Authorization': `Bearer ${getAccessToken()}`,
             'Content-Type': 'application/json'
         }
     })
