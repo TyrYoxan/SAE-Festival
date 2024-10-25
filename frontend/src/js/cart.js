@@ -26,7 +26,7 @@ const cartTemplate = `
         <h4>{{name}}</h4>
         <p>{{date}} {{hour}}</p>
         <small>{{lieu}} x{{quantite}} - {{tarif}}€</small>
-        <i class="fa-solid fa-trash"></i>
+        <i onclick="deleteItemFromCart({{id}})" class="fa-solid fa-trash"></i>
         {{/soirees}}
     </div>
     <button onclick="validateCart()">Valider le Panier ({{tarifSum}}€)</button>`;
@@ -46,6 +46,8 @@ const loadCart = () => {
         })
         .then(data => {
 
+            console.log(data)
+
             let tarifSum = 0;
 
             data.panier.soirees.forEach(s => {
@@ -61,9 +63,10 @@ const loadCart = () => {
             let sCount = data.panier.soirees.length;
 
             if(sCount > 0)
-                document.querySelector(".shopping-cart-count").innerHTML = data.panier.soirees.length;
+                document.querySelector(".shopping-cart-count").innerHTML = sCount + "";
 
-            else document.querySelector(".shopping-cart").style.display = "none";
+            else if(sCount == 0)
+                document.querySelector(".shopping-cart").style.display = "none";
 
             document.querySelector(".shopping-cart-content").innerHTML = result;
         })
@@ -132,6 +135,31 @@ const validateCart = () => {
         })
         .then(data => {
             window.location.href = "buy.html";
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+const deleteItemFromCart = (itemID, el) => {
+    if(!isLoggedIn()) {
+        return alert("Vous n'êtes pas connecté. Connectez-vous pour valider votre panier.")
+    }
+
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/${itemID}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response;
+        })
+        .then(data => {
+            window.location.reload();
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
