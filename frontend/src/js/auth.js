@@ -1,10 +1,12 @@
+import config from './config';
+
 const signIn = () => {
     let email = document.querySelector("#email").value;
     let password = document.querySelector("#password").value;
 
     const base64Credentials = btoa(`${email}:${password}`);
 
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/users/signin', {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/users/signin', {
         method: 'POST',
         headers: {
             'Authorization': `Basic ${base64Credentials}`,
@@ -49,7 +51,7 @@ const signUp = () => {
 
     const base64Credentials = btoa(`${email}:${password}:${name}`);
 
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/users/signup', {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/users/signup', {
         method: 'POST',
         headers: {
             'Authorization': `Basic ${base64Credentials}`,

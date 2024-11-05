@@ -1,3 +1,5 @@
+import config from './config';
+
 window.addEventListener('load', function() {
     if(isLoggedIn())
         loadTickets(getUserId());
@@ -24,7 +26,7 @@ const ticketTemplate = `
     </div>`;
 
 const loadTickets = (userID) => {
-    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/users/${userID}/billets`, {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + `/users/${userID}/billets`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getAccessToken()}`,

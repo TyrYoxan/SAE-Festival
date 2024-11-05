@@ -1,3 +1,5 @@
+import config from './config';
+
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
     const soireeId = params.get('soiree');
@@ -49,7 +51,7 @@ const soireeTemplate = `
     </div>`;
 
 const loadSoiree = (soireeId) => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/soirees/' + soireeId)
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/soirees/' + soireeId)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -79,7 +81,7 @@ const loadSoiree = (soireeId) => {
 }
 
 const showPlacesRemaining = (soireeId) => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/soirees/nbPlacesVendues/' + soireeId, {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/soirees/nbPlacesVendues/' + soireeId, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${getAccessToken()}`,

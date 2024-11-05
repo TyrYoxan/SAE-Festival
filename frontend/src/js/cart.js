@@ -1,3 +1,5 @@
+import config from './config';
+
 window.addEventListener('load', function() {
     if(!isLoggedIn())
         return document.querySelector(".shopping-cart").style.display = "none";
@@ -32,7 +34,7 @@ const cartTemplate = `
     <button onclick="validateCart()">Valider le Panier ({{tarifSum}}€)</button>`;
 
 const loadCart = () => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId(),{
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/panier/' + getUserId(),{
         method: 'GET',
             headers: {
                 'Authorization': `Bearer ${getAccessToken()}`,
@@ -93,7 +95,7 @@ const addToCart = (soireeID) => {
 
     const base64Credentials = btoa(`${soireeID}:${qte}:${reduit}`);
 
-    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/ajouter`, {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + `/panier/${getUserId()}/ajouter`, {
         method: "POST",
         headers: {
             'Authorization': `Bearer ${getAccessToken()}`,
@@ -124,7 +126,7 @@ const validateCart = () => {
         return alert("Vous n'êtes pas connecté. Connectez-vous pour valider votre panier.")
     }
 
-    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/valider`, {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + `/panier/${getUserId()}/valider`, {
         method: "POST",
         headers: {
             'Authorization': `Bearer ${getAccessToken()}`,
@@ -150,7 +152,7 @@ const deleteItemFromCart = (itemID, el) => {
         return alert("Vous n'êtes pas connecté. Connectez-vous pour valider votre panier.")
     }
 
-    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/panier/${getUserId()}/${itemID}`, {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + `/panier/${getUserId()}/${itemID}`, {
         method: "DELETE",
         headers: {
             'Authorization': `Bearer ${getAccessToken()}`,

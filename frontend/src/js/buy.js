@@ -1,3 +1,5 @@
+import config from './config';
+
 window.addEventListener('load', function() {
     loadBuyCart();
 });
@@ -18,7 +20,7 @@ const buyCartTemplate = `
     <h4>Total: {{tarifSum}}€</h4>`;
 
 const loadBuyCart = () => {
-    fetch('http://docketu.iutnc.univ-lorraine.fr:22000/panier/' + getUserId(), {
+    fetch(config.apiBaseUrl + ':' + config.apiPort + '/panier/' + getUserId(), {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${getAccessToken()}`,
