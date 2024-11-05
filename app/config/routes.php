@@ -24,28 +24,22 @@ return function (\Slim\App $app): \Slim\App {
         return $response;
     });
 
-    $app->get('/', HomeAction::class)->setName('home')
-       ;
+    $app->get('/', HomeAction::class)->setName('home');
 
     // liste spectacles
-    $app->get('/spectacles', GetSpectaclesAction::class)->setName('spectacles')
-       ;
+    $app->get('/spectacles', GetSpectaclesAction::class)->setName('spectacles');
 
     //liste des themes
-    $app->get('/themes', GetThemesAction::class)->setName('themes')
-        ;
+    $app->get('/themes', GetThemesAction::class)->setName('themes');
 
     // details d'un spectacle
-    $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle')
-        ;
+    $app->get('/soirees/{id}', GetSoireeAction::class)->setName('spectacle');
 
     // liste des lieux
-    $app->get('/lieux', GetLieuxAction::class)->setName('lieux')
-        ;
+    $app->get('/lieux', GetLieuxAction::class)->setName('lieux');
 
     // create user
-    $app->post('/users/signup', PostCreateUserAction::class)->setName('createUser')
-        ;
+    $app->post('/users/signup', PostCreateUserAction::class)->setName('createUser');
 
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
