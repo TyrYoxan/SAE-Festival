@@ -1,4 +1,4 @@
-import config from './config.js';
+import { config } from './config.js';
 
 window.addEventListener('load', function() {
     loadSpectacles();
@@ -63,7 +63,7 @@ const changeDate = (v) => {
 }
 
 const loadStyles = () => {
-    fetch(config.apiBaseUrl + ':' + config.apiPort + `/soirees/themes`)
+    fetch(config.apiBaseUrl + ':' + config.apiPort + `/themes`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');

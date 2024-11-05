@@ -37,7 +37,7 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-            <button onclick="signIn()" type="submit" class="btn">Se connecter</button>
+            <button id="signin-button" type="submit" class="btn">Se connecter</button>
         </div>
 
         <p>Pas encore de compte ? <a href="signup.html">S'inscrire</a></p>
@@ -47,13 +47,17 @@
 <footer>
     <p>&copy; 2024 Nancy Rock Vibration. Tous droits réservés.</p>
 </footer>
-</body>
 <script type="module" src="js/auth.js"></script>
-<script>
+<script type="module">
+    import { isLoggedIn, signIn } from "./js/auth.js";
+
     window.addEventListener('load', function() {
-        if(isLoggedIn()) {
+        if (isLoggedIn()) {
             window.location.href = "profile.html";
         }
+
+        document.getElementById('signin-button').addEventListener('click', signIn);
     });
 </script>
+</body>
 </html>

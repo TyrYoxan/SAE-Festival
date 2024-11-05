@@ -1,5 +1,5 @@
-import config from './config.js';
-
+import { config } from './config.js';
+import { isLoggedIn, getUserId } from './auth.js';
 window.addEventListener('load', function() {
     if(isLoggedIn())
         loadTickets(getUserId());

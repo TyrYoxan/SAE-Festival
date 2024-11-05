@@ -1,4 +1,5 @@
-import config from './config.js';
+import { config } from './config.js';
+import { getUserId, getAccessToken } from './auth.js';
 
 window.addEventListener('load', function() {
     loadBuyCart();

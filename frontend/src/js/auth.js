@@ -1,4 +1,4 @@
-import config from './config.js';
+import { config } from './config.js';
 
 const signIn = () => {
     let email = document.querySelector("#email").value;
@@ -147,3 +147,5 @@ window.addEventListener('load', function() {
         return;
     }
 });
+
+export { signIn, signUp, signOut, isLoggedIn, getAccessToken, getUserId, getNameFromToken, getPayLoad };

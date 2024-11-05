@@ -1,4 +1,5 @@
-import config from './config.js';
+import { config } from './config.js';
+import { getPayLoad, getAccessToken, isLoggedIn } from './auth.js';
 
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
