@@ -1,4 +1,4 @@
-import config from './config';
+import config from './config.js';
 
 const signIn = () => {
     let email = document.querySelector("#email").value;

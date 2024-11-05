@@ -1,4 +1,4 @@
-import config from './config';
+import config from './config.js';
 
 window.onload = () => {
     const params = new URLSearchParams(window.location.search);
