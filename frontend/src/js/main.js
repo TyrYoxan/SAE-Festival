@@ -1,5 +1,3 @@
-import config from './config';
-
 window.addEventListener('load', function() {
     loadSpectacles();
     loadStyles();
@@ -63,7 +61,7 @@ const changeDate = (v) => {
 }
 
 const loadStyles = () => {
-    fetch(config.apiBaseUrl + ':' + config.apiPort + `/soirees/themes`)
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/themes`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -85,7 +83,7 @@ const loadStyles = () => {
 }
 
 const loadSLieux = () => {
-    fetch(config.apiBaseUrl + ':' + config.apiPort + `/lieux`)
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/lieux`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -119,7 +117,7 @@ const spectaclesPerPage = 8;
 let allSpectacles = [];
 
 const loadSpectacles = () => {
-    fetch(config.apiBaseUrl + ':' + config.apiPort + `/spectacles?type=${type}&lieu=${lieu}&date=${date}`)
+    fetch(`http://docketu.iutnc.univ-lorraine.fr:22000/spectacles?type=${type}&lieu=${lieu}&date=${date}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -127,7 +125,7 @@ const loadSpectacles = () => {
             return response.json();
         })
         .then(data => {
-            console.log(config.apiBaseUrl + ':' + config.apiPort + `/spectacles?type=${type}&lieu=${lieu}&date=${date}`)
+            console.log(`http://docketu.iutnc.univ-lorraine.fr:22000/spectacles?type=${type}&lieu=${lieu}&date=${date}`)
             data.spectacles.forEach(spectacle => {
                 spectacle.firstImage = JSON.parse(spectacle.images)[0];
             });
