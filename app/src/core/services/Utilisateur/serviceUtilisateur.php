@@ -15,7 +15,8 @@ class serviceUtilisateur implements serviceUtilisateurInterface{
 
     public function createUser(string $nom, string $email, string $password): void{
         try {
-            $utilisateur = new Utilisateur($nom, $email, $password);
+            $pwd = password_hash($password, PASSWORD_BCRYPT);
+            $utilisateur = new Utilisateur($nom, $email, $pwd);
             $this->utilisateurRepository->creatUser($utilisateur);
         }catch (\Exception $e){
             throw new \Exception($e->getMessage());

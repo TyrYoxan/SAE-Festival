@@ -21,9 +21,9 @@ class PostCreateUserAction extends AbstractAction{
             if(!filter_var( $data['email'], FILTER_VALIDATE_EMAIL)){
                 throw new \Exception('Email invalide');
             }
-            $pwd = password_hash($data['password'], PASSWORD_BCRYPT);
 
-            $this->serviceUtilisateur->createUser(strip_tags($data['name']), $data['email'], $pwd);
+
+            $this->serviceUtilisateur->createUser(strip_tags($data['name']), $data['email'], $data['password']);
             return JsonRenderer::render($rs, 201, ['message' => 'Utilisateur cree avec succees']);
         }catch (\Exception $th) {
             return JsonRenderer::render($rs, 500, $th->getMessage());

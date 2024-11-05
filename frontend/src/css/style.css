@@ -1,1 +1,480 @@
-#intro,header,nav ul{text-align:center}#acheter-billets,.cta-button{background-color:#ff6b6b;color:#fff}.show-item,.venue-list li{box-shadow:0 4px 8px rgba(0,0,0,.1)}#compte,body{background-color:#f4f4f4}#acheter-billets,#compte,#mes-billets{padding:60px 20px}footer,header{background-color:#333;padding:20px}.show-item div,.spectacle .images,body,footer,header{padding:20px}.cta-button,footer ul li,nav ul li{display:inline-block}#details-soiree ul,.venue-list,footer ul,nav ul{list-style:none}*{margin:0;padding:0;box-sizing:border-box}body{font-family:Arial,sans-serif;line-height:1.6;color:#333}a{text-decoration:none;color:#ff6b6b}header{position:sticky;top:0;z-index:1000}header .logo{font-size:2em;font-weight:700;color:#fff}nav ul{margin-top:10px}nav ul li{margin:0 15px}footer ul li a,nav ul li a{color:#fff;font-size:1.1em}#intro{padding:100px 0;background-image:url('https://images.lanouvellerepublique.fr/image/upload/f_auto/66c7777080e958715f8b45fe.jpg');background-size:cover;background-position:center;color:#fff}#intro h1{font-size:3em;margin-bottom:20px;text-shadow:-1px -1px 1px rgba(255,255,255,.1),1px 1px 1px rgba(0,0,0,.5)}#intro p{font-size:1.2em;margin-bottom:30px}.cta-button{padding:10px 30px;border-radius:5px;font-size:1.2em;transition:background-color .3s}.billet,.no-tickets,.show-item,.venue-list li{border-radius:8px}.cta-button:hover,button:hover{background-color:#d57171}#details-soiree,#mes-billets,.show-item,.venue-list li{background-color:#f9f9f9}#buy,#lieux,#programme{padding:60px 20px;background-color:#fff;text-align:center}#acheter-billets h2,#compte h2,#lieux h2,#programme h2{font-size:2.5em;margin-bottom:30px}#programme .filters{margin-bottom:30px;margin-top:30px}#programme .filters label{font-size:1.1em;margin-right:10px}#programme .filters input,#programme .filters select{padding:5px;font-size:1em;margin-right:20px}.show-list{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}.show-item{overflow:hidden;width:300px;text-align:left}.billet,.spectacle{box-shadow:0 2px 6px rgba(0,0,0,.1)}#acheter-billets,#compte,#signin,#signup,.no-tickets,footer{text-align:center}.show-item img{width:100%;height:200px;object-fit:cover}.show-item h3{font-size:1.5em;margin-bottom:10px}.show-item p{font-size:1.1em;margin-bottom:10px}#signin,#signup{margin:40px 0}#acheter-billets p,#compte p{font-size:1.2em;margin-bottom:20px}.venue-list{display:flex;flex-direction:column;gap:20px;margin-top:20px}.venue-list li{padding:20px}.venue-list h3{font-size:1.8em;margin-bottom:10px}.billet{background-color:#fff;padding:1.5rem;margin-bottom:1.5rem;transition:transform .3s,box-shadow .3s}.billet:hover{transform:translateY(-5px);box-shadow:0 4px 12px rgba(0,0,0,.2)}.billet h2{color:#ff6b6b;font-size:1.5rem;margin-bottom:.75rem}.billet p,.spectacle p{color:#7f8c8d;font-size:1.1rem;margin-bottom:.5rem}.no-tickets{padding:2rem;background-color:#f0f0f0;font-size:1.2rem;color:#95a5a6;margin-top:2rem}.form-group{text-align:left;width:100%;max-width:500px;margin:20px auto}.form-group label{display:block;margin-bottom:.5rem;font-weight:700;color:#34495e}.form-group input{width:100%;padding:.5rem;border:1px solid #ccc;border-radius:4px;font-size:1rem;background-color:#f8f8f8}input:focus{outline:0;border-color:#ff6b6b}button.btn,button[type=submit]{padding:.75rem 2rem;background-color:#ff6b6b;color:#fff;border:none;border-radius:5px;cursor:pointer;font-size:1rem;transition:background-color .3s}footer{color:#fff}footer ul{padding-top:10px}footer ul li{margin:0 10px}footer ul li a:hover{text-decoration:underline}#details-soiree{padding:2rem}#details-soiree h1{color:#ff6b6b;margin-bottom:1rem}#details-soiree p{color:#7f8c8d;font-size:1.2rem;margin-bottom:.5rem}#details-soiree .tarifs ul{list-style:none;padding-left:0}#details-soiree .tarifs li{color:#2c3e50;font-size:1.1rem;margin-bottom:.5rem}.spectacle{background-color:#fff;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem}.spectacle h3{color:#ff6b6b;margin-bottom:.75rem}#details-soiree ul{margin-left:12px}.spectacle .images img{height:200px;border-radius:10px;margin-right:12px}.venue-list img{height:120px;margin-top:20px;border-radius:12px}.shopping-cart{border-radius:50%;background:#fff;position:absolute;top:50%;right:25px;transform:translate(-50%,-50%);height:40px;width:40px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#181818}.shopping-cart:hover{background:#d7d7d7;transition:.35s}.shopping-cart-content{height:auto;width:300px;position:absolute;background:#181818;top:30px;right:15px;border-radius:8px;color:#fff;padding:15px;text-align:left;display:flex;flex-direction:column;justify-content:space-between}.sep{width:100%;height:1px;background-color:#bbb;margin:10px auto}.shopping-cart-count{border-radius:50%;background:green;position:absolute;top:-10px;right:-10px;height:20px;width:20px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#181818}.shopping-cart .fa-trash{color:red}.shopping-cart button{width:100%;background:#556b2f;border-radius:8px;border:0;padding:10px 0;color:#fff;font-size:14px;font-weight:700}.shopping-cart button:hover{cursor:pointer;background:#4a5926;transition:.3s}#shopping-cart-items{overflow:auto;max-height:400px;margin-bottom:10px}.buy-container{display:flex;justify-content:space-between;gap:20px}.cart,.payment-info{background-color:#f9f9f9;border-radius:8px;padding:20px;box-shadow:0 4px 8px rgba(0,0,0,.1);width:48%}.cart h2,.payment-info h2{font-size:2em;margin-bottom:20px}.total{margin-top:20px;font-size:1.5em}@media (max-width:768px){nav ul{display:block;text-align:center}nav ul li{margin:10px 0}.show-list{flex-direction:column;align-items:center}#filters-form,.buy-container{flex-direction:column}.spectacles{grid-template-columns:1fr}#details-soiree,#mes-billets,.billet,.spectacle{padding:1rem}.billet h2,.spectacle h3{font-size:1.25rem}button.btn{padding:.5rem 1.5rem;font-size:.9rem}}.progress-bg{width:500px;position:relative;background:#95a5a6;height:25px}.progress,.progress-text{position:absolute;bottom:0;left:0;top:0}.progress{background:#ff6b6b}.progress-text{color:#000;display:flex;align-items:center;justify-content:center;right:0}
+#intro,
+header,
+nav ul {
+    text-align: center;
+}
+#acheter-billets,
+.cta-button {
+    background-color: #ff6b6b;
+    color: #fff;
+}
+.show-item,
+.venue-list li {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#compte,
+body {
+    background-color: #f4f4f4;
+}
+#acheter-billets,
+#compte,
+#mes-billets {
+    padding: 60px 20px;
+}
+footer,
+header {
+    background-color: #333;
+    padding: 20px;
+}
+.show-item div,
+.spectacle .images,
+body,
+footer,
+header {
+    padding: 20px;
+}
+.cta-button,
+footer ul li,
+nav ul li {
+    display: inline-block;
+}
+#details-soiree ul,
+.venue-list,
+footer ul,
+nav ul {
+    list-style: none;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+a {
+    text-decoration: none;
+    color: #ff6b6b;
+}
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+header .logo {
+    font-size: 2em;
+    font-weight: 700;
+    color: #fff;
+}
+nav ul {
+    margin-top: 10px;
+}
+nav ul li {
+    margin: 0 15px;
+}
+footer ul li a,
+nav ul li a {
+    color: #fff;
+    font-size: 1.1em;
+}
+#intro {
+    padding: 100px 0;
+    background-image: url("https://images.lanouvellerepublique.fr/image/upload/f_auto/66c7777080e958715f8b45fe.jpg");
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+#intro h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+#intro p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+.cta-button {
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+.billet,
+.no-tickets,
+.show-item,
+.venue-list li {
+    border-radius: 8px;
+}
+.cta-button:hover,
+button:hover {
+    background-color: #d57171;
+}
+#details-soiree,
+#mes-billets,
+.show-item,
+.venue-list li {
+    background-color: #f9f9f9;
+}
+#buy,
+#lieux,
+#programme {
+    padding: 60px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+#acheter-billets h2,
+#compte h2,
+#lieux h2,
+#programme h2 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+#programme .filters {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+#programme .filters label {
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+#programme .filters input,
+#programme .filters select {
+    padding: 5px;
+    font-size: 1em;
+    margin-right: 20px;
+}
+.show-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+.show-item {
+    overflow: hidden;
+    width: 300px;
+    text-align: left;
+}
+.billet,
+.spectacle {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+#acheter-billets,
+#compte,
+#signin,
+#signup,
+.no-tickets,
+footer {
+    text-align: center;
+}
+.show-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.show-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+.show-item p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+#signin,
+#signup {
+    margin: 40px 0;
+}
+#acheter-billets p,
+#compte p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.venue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+.venue-list li {
+    padding: 20px;
+}
+.venue-list h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+.billet {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.billet:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.billet h2 {
+    color: #ff6b6b;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.billet p,
+.spectacle p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.no-tickets {
+    padding: 2rem;
+    background-color: #f0f0f0;
+    font-size: 1.2rem;
+    color: #95a5a6;
+    margin-top: 2rem;
+}
+.form-group {
+    text-align: left;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #34495e;
+}
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: #f8f8f8;
+}
+input:focus {
+    outline: 0;
+    border-color: #ff6b6b;
+}
+button.btn,
+button[type="submit"] {
+    padding: 0.75rem 2rem;
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+footer {
+    color: #fff;
+}
+footer ul {
+    padding-top: 10px;
+}
+footer ul li {
+    margin: 0 10px;
+}
+footer ul li a:hover {
+    text-decoration: underline;
+}
+#details-soiree {
+    padding: 2rem;
+}
+#details-soiree h1 {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+}
+#details-soiree p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+#details-soiree .tarifs ul {
+    list-style: none;
+    padding-left: 0;
+}
+#details-soiree .tarifs li {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.spectacle {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.spectacle h3 {
+    color: #ff6b6b;
+    margin-bottom: 0.75rem;
+}
+#details-soiree ul {
+    margin-left: 12px;
+}
+.spectacle .images img {
+    height: 200px;
+    border-radius: 10px;
+    margin-right: 12px;
+}
+.venue-list img {
+    height: 120px;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+.shopping-cart {
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #181818;
+}
+.shopping-cart:hover {
+    background: #d7d7d7;
+    transition: 0.35s;
+}
+.shopping-cart-content {
+    height: auto;
+    width: 300px;
+    position: absolute;
+    background: #181818;
+    top: 30px;
+    right: 15px;
+    border-radius: 8px;
+    color: #fff;
+    padding: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.sep {
+    width: 100%;
+    height: 1px;
+    background-color: #bbb;
+    margin: 10px auto;
+}
+.shopping-cart-count {
+    border-radius: 50%;
+    background: green;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #181818;
+}
+.shopping-cart .fa-trash {
+    color: red;
+}
+.shopping-cart button {
+    width: 100%;
+    background: #556b2f;
+    border-radius: 8px;
+    border: 0;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+}
+.shopping-cart button:hover {
+    cursor: pointer;
+    background: #4a5926;
+    transition: 0.3s;
+}
+#shopping-cart-items {
+    overflow: auto;
+    max-height: 400px;
+    margin-bottom: 10px;
+}
+.buy-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.cart,
+.payment-info {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+}
+.cart h2,
+.payment-info h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+.total {
+    margin-top: 20px;
+    font-size: 1.5em;
+}
+@media (max-width: 768px) {
+    nav ul {
+        display: block;
+        text-align: center;
+    }
+    nav ul li {
+        margin: 10px 0;
+    }
+    .show-list {
+        flex-direction: column;
+        align-items: center;
+    }
+    #filters-form,
+    .buy-container {
+        flex-direction: column;
+    }
+    .spectacles {
+        grid-template-columns: 1fr;
+    }
+    #details-soiree,
+    #mes-billets,
+    .billet,
+    .spectacle {
+        padding: 1rem;
+    }
+    .billet h2,
+    .spectacle h3 {
+        font-size: 1.25rem;
+    }
+    button.btn {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+.progress-bg {
+    width: 500px;
+    position: relative;
+    background: #95a5a6;
+    height: 25px;
+}
+.progress,
+.progress-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+}
+.progress {
+    background: #ff6b6b;
+}
+.progress-text {
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+}

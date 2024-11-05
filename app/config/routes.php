@@ -32,7 +32,7 @@ return function (\Slim\App $app): \Slim\App {
        ;
 
     //liste des themes
-    $app->get('/soirees/themes', GetThemesAction::class)->setName('themes')
+    $app->get('/themes', GetThemesAction::class)->setName('themes')
         ;
 
     // details d'un spectacle
@@ -50,7 +50,7 @@ return function (\Slim\App $app): \Slim\App {
     // signin
     $app->post('/users/signin', PostSigninAction::class)->setName('signin');
 
-    $app->get('/soirees/nbPlacesVendues/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues')
+    $app->get('/soirees/Places/{id_soiree}', GetnbPlacesVenduesAction::class)->setName('nbPlacesVendues')
         ->add(AdminMiddleware::class)
         ->add(JWTAuthMiddleware::class);
 

@@ -41,156 +41,150 @@ use festival\infrastructure\repositories\PDOTheme;
 use festival\infrastructure\repositories\PDOUtilisateur;
 use Psr\Container\ContainerInterface;
 
-
-
-return[
-    Cors::class => function (ContainerInterface $c) {
+return [
+    'middleware.cors_instance' => function (ContainerInterface $c) {
         return new Cors();
     },
 
-    JWTAuthMiddleware::class => function (ContainerInterface $c) {
-            return new JWTAuthMiddleware();
+    'middleware.jwt_auth_instance' => function (ContainerInterface $c) {
+        return new JWTAuthMiddleware();
     },
 
-    AdminMiddleware::class => function (ContainerInterface $c) {
+    'middleware.admin_instance' => function (ContainerInterface $c) {
         return new AdminMiddleware();
     },
 
-    // PDO
-    'pdo' => function (ContainerInterface $c) {
+    // Database connection
+    'database.pdo_connection' => function (ContainerInterface $c) {
         return new PDO(
             'mysql:host=festival.db;dbname=festival;charset=utf8',
             'root',
             'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
     },
 
-    'spectacle.pdo' => function (ContainerInterface $c) {
-        return new PDOSpectacle($c->get('pdo'));
+    // Repositories PDO
+    'pdo.spectacle_repository' => function (ContainerInterface $c) {
+        return new PDOSpectacle($c->get('database.pdo_connection'));
     },
 
-    'soiree.pdo' => function (ContainerInterface $c) {
-
-        return new PDOSoiree($c->get('pdo'));
+    'pdo.soiree_repository' => function (ContainerInterface $c) {
+        return new PDOSoiree($c->get('database.pdo_connection'));
     },
 
-    'theme.pdo' => function (ContainerInterface $c) {
-        return new PDOTheme($c->get('pdo'));
+    'pdo.theme_repository' => function (ContainerInterface $c) {
+        return new PDOTheme($c->get('database.pdo_connection'));
     },
 
-    'lieu.pdo' => function (ContainerInterface $c) {
-        return new PDOLieu($c->get('pdo'));
+    'pdo.lieu_repository' => function (ContainerInterface $c) {
+        return new PDOLieu($c->get('database.pdo_connection'));
     },
 
-    'user.pdo' => function (ContainerInterface $c) {
-        return new PDOUtilisateur($c->get('pdo'));
+    'pdo.user_repository' => function (ContainerInterface $c) {
+        return new PDOUtilisateur($c->get('database.pdo_connection'));
     },
 
-    'panier.pdo' => function (ContainerInterface $c) {
-        return new PDOPanier($c->get('pdo'));
+    'pdo.panier_repository' => function (ContainerInterface $c) {
+        return new PDOPanier($c->get('database.pdo_connection'));
     },
 
-    'billet.pdo' => function (ContainerInterface $c) {
-        $pdo = new PDO(
-            'mysql:host=festival.db;dbname=festival;charset=utf8',
-            'root',
-            'root',
-            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-        return new PDOBillet($pdo);
+    'pdo.billet_repository' => function (ContainerInterface $c) {
+        return new PDOBillet($c->get('database.pdo_connection'));
     },
 
-    // Repositories
-    SpectacleRepositoryInterface::class => function (ContainerInterface $c) {
-        return new serviceSpectacle($c->get('spectacle.pdo'));
+    // Repository Interfaces
+    'repository.spectacle_service' => function (ContainerInterface $c) {
+        return new serviceSpectacle($c->get('pdo.spectacle_repository'));
     },
 
-    SoireeRepositoryInterface::class => function (ContainerInterface $c) {
-        return new serviceSoirees($c->get('soiree.pdo'));
+    'repository.soiree_service' => function (ContainerInterface $c) {
+        return new serviceSoirees($c->get('pdo.soiree_repository'));
     },
 
-    ThemeRepositoryInterface::class => function (ContainerInterface $c) {
-        return new serviceThemes($c->get('theme.pdo'));
+    'repository.theme_service' => function (ContainerInterface $c) {
+        return new serviceThemes($c->get('pdo.theme_repository'));
     },
 
-    LieuRepositoryInterface::class => function (ContainerInterface $c) {
-        return new serviceLieux($c->get('lieu.pdo'));
+    'repository.lieu_service' => function (ContainerInterface $c) {
+        return new serviceLieux($c->get('pdo.lieu_repository'));
     },
 
-    UtilisateurRepositoryInterface::class => function (ContainerInterface $c) {
-        return $c->get('user.pdo');
+    'repository.user_interface' => function (ContainerInterface $c) {
+        return $c->get('pdo.user_repository');
     },
 
-    PanierRepositoryInterface::class => function (ContainerInterface $c) {
-        return $c->get('panier.pdo');
+    'repository.panier_interface' => function (ContainerInterface $c) {
+        return $c->get('pdo.panier_repository');
     },
 
-    BilletRepositoryInterface::class => function (ContainerInterface $c) {
-        return $c->get('billet.pdo');
+    'repository.billet_interface' => function (ContainerInterface $c) {
+        return $c->get('pdo.billet_repository');
     },
 
     // Services
-    serviceUtilisateurInterface::class => function (ContainerInterface $c) {
-        return new serviceUtilisateur($c->get(UtilisateurRepositoryInterface::class));
+    'service.user_instance' => function (ContainerInterface $c) {
+        return new serviceUtilisateur($c->get('repository.user_interface'));
     },
 
-    servicePanierInterface::class => function (ContainerInterface $c) {
-        return new servicePanier($c->get(PanierRepositoryInterface::class), $c->get(BilletRepositoryInterface::class));
+    'service.panier_instance' => function (ContainerInterface $c) {
+        return new servicePanier($c->get('repository.panier_interface'), $c->get('repository.billet_interface'));
     },
 
-    JWTAuthnProvider::class => function (ContainerInterface $c) {
-        return new JWTAuthnProvider($c->get(UtilisateurRepositoryInterface::class));
+    'provider.jwt_auth_instance' => function (ContainerInterface $c) {
+        return new JWTAuthnProvider($c->get('repository.user_interface'));
     },
 
     // Actions
-    GetSpectaclesAction::class => function (ContainerInterface $c) {
-        return new GetSpectaclesAction($c->get(SpectacleRepositoryInterface::class));
+    'action.get_spectacles_instance' => function (ContainerInterface $c) {
+        return new GetSpectaclesAction($c->get('repository.spectacle_service'));
     },
 
-    GetSoireeAction::class => function (ContainerInterface $c) {
-        return new GetSoireeAction($c->get(SoireeRepositoryInterface::class));
+    'action.get_soiree_instance' => function (ContainerInterface $c) {
+        return new GetSoireeAction($c->get('repository.soiree_service'));
     },
 
-    GetThemesAction::class => function (ContainerInterface $c) {
-        return new GetThemesAction($c->get(ThemeRepositoryInterface::class));
+    'action.get_themes_instance' => function (ContainerInterface $c) {
+        return new GetThemesAction($c->get('repository.theme_service'));
     },
 
-    GetLieuxAction::class => function (ContainerInterface $c) {
-        return new GetLieuxAction($c->get(LieuRepositoryInterface::class));
+    'action.get_lieux_instance' => function (ContainerInterface $c) {
+        return new GetLieuxAction($c->get('repository.lieu_service'));
     },
 
-    PostCreateUserAction::class => function (ContainerInterface $c) {
-        return new PostCreateUserAction($c->get(serviceUtilisateurInterface::class));
+    'action.post_create_user_instance' => function (ContainerInterface $c) {
+        return new PostCreateUserAction($c->get('service.user_instance'));
     },
 
-    PostSigninAction::class => function (ContainerInterface $c) {
-        return new PostSigninAction($c->get(UtilisateurRepositoryInterface::class));
+    'action.post_signin_instance' => function (ContainerInterface $c) {
+        return new PostSigninAction($c->get('repository.user_interface'));
     },
 
-    GetTicketByUserAction::class => function (ContainerInterface $c) {
-        return new GetTicketByUserAction($c->get(serviceUtilisateurInterface::class));
+    'action.get_ticket_by_user_instance' => function (ContainerInterface $c) {
+        return new GetTicketByUserAction($c->get('service.user_instance'));
     },
 
-    GetPanierAction::class => function (ContainerInterface $c) {
-        return new GetPanierAction($c->get(servicePanierInterface::class));
+    'action.get_panier_instance' => function (ContainerInterface $c) {
+        return new GetPanierAction($c->get('service.panier_instance'));
     },
 
-    GetAddBilletPanierAction::class => function (ContainerInterface $c) {
-        return new GetAddBilletPanierAction($c->get(servicePanierInterface::class));
+    'action.get_add_billet_panier_instance' => function (ContainerInterface $c) {
+        return new GetAddBilletPanierAction($c->get('service.panier_instance'));
     },
 
-    PostValidatePanierAction::class => function (ContainerInterface $c) {
-        return new PostValidatePanierAction($c->get(servicePanierInterface::class));
+    'action.post_validate_panier_instance' => function (ContainerInterface $c) {
+        return new PostValidatePanierAction($c->get('service.panier_instance'));
     },
 
-    GetnbPlacesVenduesAction::class => function (ContainerInterface $c) {
-        return new GetnbPlacesVenduesAction($c->get(SoireeRepositoryInterface::class));
+    'action.get_nb_places_vendues_instance' => function (ContainerInterface $c) {
+        return new GetnbPlacesVenduesAction($c->get('repository.soiree_service'));
     },
 
-    PostPayerPanierAction::class => function (ContainerInterface $c) {
-        return new PostPayerPanierAction($c->get(servicePanierInterface::class), $c->get(SoireeRepositoryInterface::class));
+    'action.post_payer_panier_instance' => function (ContainerInterface $c) {
+        return new PostPayerPanierAction($c->get('service.panier_instance'), $c->get('repository.soiree_service'));
     },
 
-    DeleteItemAction::class => function (ContainerInterface $c) {
-        return new DeleteItemAction($c->get(servicePanierInterface::class));
+    'action.delete_item_instance' => function (ContainerInterface $c) {
+        return new DeleteItemAction($c->get('service.panier_instance'));
     },
 ];
